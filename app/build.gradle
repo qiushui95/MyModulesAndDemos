@@ -4,31 +4,130 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: "kotlin-kapt"
+
 android {
-    compileSdkVersion 28
+    compileSdkVersion buildVersions.targetSdk
+    buildToolsVersion buildVersions.buildTools
+
     defaultConfig {
         applicationId "me.yangcx.demos"
-        minSdkVersion 19
-        targetSdkVersion 28
+        minSdkVersion buildVersions.minSdk
+        targetSdkVersion buildVersions.targetSdk
         versionCode 1
         versionName "1.0"
+
+        sourceSets {
+            main.java.srcDirs += 'src/main/kotlin'
+            test.java.srcDirs += 'src/test/kotlin'
+            androidTest.java.srcDirs += 'src/androidTest/kotlin'
+        }
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        YangCx {
+            storeFile file(rootProject.ext.storeFile)
+            storePassword rootProject.ext.storePassword
+            keyAlias rootProject.ext.keyAlias
+            keyPassword rootProject.ext.keyPassword
+        }
+    }
+
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.YangCx
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.YangCx
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            //设置打包名称
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 显示app名称+当前版本号
+                        def fileName = "Demos_V${variant.versionCode}"
+                        // 加入打包时间
+                        fileName = fileName + "-${releaseTime()}.apk"
+                        outputFileName = fileName
+                    }
+                }
+            }
         }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
-    implementation 'androidx.core:core-ktx:1.0.1'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+
+    //anko
+    implementation deps.anko.common
+
+    //kotlin
+    implementation deps.kotlin.stdlib
+    implementation deps.kotlin.reflect
+
+    //coroutines
+    implementation deps.coroutines.core
+    implementation deps.coroutines.android
+
+    //ktx
+    implementation deps.ktx.core
+
+    //support
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.material
+    implementation deps.androidx.multiDex
+
+    //bus
+    implementation deps.bus.eventBus
+
+    //view
+    implementation deps.view.constraintLayout
+
+    //glide
+    implementation deps.glide.core
+
+    //koin
+    implementation deps.koin.core
+    implementation deps.koin.viewModel
+
+    //rxBinding
+    implementation deps.rxBinding.core
+
+    //autoDispose
+    implementation deps.autoDispose.core
+    implementation deps.autoDispose.android
+    implementation deps.autoDispose.androidArchcomponents
+
+    //recycler
+    implementation deps.recyclerView.recyclerView
+    implementation(deps.recyclerView.multiType) {
+        exclude group: 'androidx.recyclerview'
+        exclude group: 'androidx.annotation'
+    }
+    implementation deps.recyclerView.multiTypeKtx
+
+    //utils
+    implementation deps.utils.joda
+    implementation deps.utils.logger
+
+    //leakCanary
+    debugImplementation deps.leakCanary.debug
+    debugImplementation deps.leakCanary.fragment
+    releaseImplementation deps.leakCanary.release
+
+    //test
+    testImplementation deps.test.junit
+    androidTestImplementation deps.test.runner
+    androidTestImplementation deps.test.core
 }

@@ -1,0 +1,13 @@
+ext {
+    storeFile = "C:/Dropbox/Android/libary/key_ycx.jks"
+    storePassword = "ycx12345"
+    keyAlias = "ycx"
+    keyPassword = "Ycx12345"
+}
+
+// 显示的时间格式，形如20170710
+def static releaseTime() {
+    return new Date().format("yyyyMMddHHmmss", TimeZone.getDefault());
+}
+
+ext.releaseTime = this.&releaseTime
