@@ -12,7 +12,7 @@ import me.yangcx.preview.entity.ImageShowType
  * create by 97457
  * create at 2018/12/06
  */
-object ImageLoadUtils {
+internal object ImageLoadUtils {
     /**
      * Glide加载图片
      * create by 97457

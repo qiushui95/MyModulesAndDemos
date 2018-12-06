@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <View
-        android:id="@+id/backMultipleImagePreview"
-        style="@style/stylePreviewBack"
-        android:visibility="visible" />
-
-    <com.alexvasilkov.gestures.views.GestureImageView
-        android:id="@+id/ivMultipleImage"
-        style="@style/stylePreviewSingle" />
+            android:id="@+id/backMultipleImagePreview"
+            style="@style/stylePreviewBack"
+            android:alpha="0.3"
+            android:visibility="visible"/>
+    <ImageView
+            android:id="@+id/ivBackImage"
+            style="@style/stylePreviewSingle"/>
+    <ImageView
+            android:id="@+id/ivMultipleImage"
+            android:visibility="visible"
+            style="@style/stylePreviewSingle"/>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vpMultipleImage"
-        style="@style/stylePreviewSingle"
-        android:visibility="visible" />
+            android:id="@+id/vpMultipleImage"
+            style="@style/stylePreviewSingle"/>
 
     <TextView
-        android:id="@+id/tvMultipleIndicator"
-        style="@style/stylePreviewMultipleIndicator"
-        tools:text="@string/stringIndicatorFormat" />
+            android:id="@+id/tvMultipleIndicator"
+            style="@style/stylePreviewMultipleIndicator"
+            tools:text="@string/stringIndicatorFormat"/>
 </merge>

@@ -22,7 +22,7 @@ import org.greenrobot.eventbus.ThreadMode
  * create by 97457
  * create at 2018/12/06
  */
-abstract class ActivityBaseSingle(@LayoutRes private val layoutRes: Int) : AppCompatActivity() {
+internal abstract class ActivityBaseSingle(@LayoutRes private val layoutRes: Int) : AppCompatActivity() {
     protected abstract val requestOptions: RequestOptions
 
     private val imageData by lazy {
@@ -41,8 +41,14 @@ abstract class ActivityBaseSingle(@LayoutRes private val layoutRes: Int) : AppCo
         intent.getIntExtra(Constants.KEY_TARGET_ID, 0)
     }
 
+    private val showStatus by lazy {
+        intent.getBooleanExtra(Constants.KEY_SHOW_STATUS,false)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        hideStatus()
         setContentView(layoutRes)
         EventBus.getDefault().register(this)
         givSingleImage.positionAnimator.addPositionUpdateListener(this::onPositionUpdate)
@@ -61,6 +67,12 @@ abstract class ActivityBaseSingle(@LayoutRes private val layoutRes: Int) : AppCo
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
+    }
+
+    private fun hideStatus() {
+        if (!showStatus) {
+            window.decorView.systemUiVisibility = View.INVISIBLE
+        }
     }
 
     private fun onPositionUpdate(position: Float, isLeaving: Boolean) {

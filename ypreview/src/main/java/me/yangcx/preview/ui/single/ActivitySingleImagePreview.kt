@@ -8,7 +8,7 @@ import me.yangcx.preview.R
  * create by 97457
  * create at 2018/12/06 0006
  */
-open class ActivitySingleImagePreview : ActivityBaseSingle(R.layout.activity_single_image_preview) {
+internal class ActivitySingleImagePreview : ActivityBaseSingle(R.layout.activity_single_image_preview) {
     companion object {
         internal lateinit var requestOptions: RequestOptions
     }

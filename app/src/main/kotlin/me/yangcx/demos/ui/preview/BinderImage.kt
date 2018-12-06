@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -40,7 +41,7 @@ class BinderImage(lifecycleOwner: LifecycleOwner) : BaseBinder<ImageData>(lifecy
     }
 
     override fun initThis(holder: RecyclerView.ViewHolder, itemView: View) {
-        lifecycleOwner.click(itemView)
+        lifecycleOwner.click(itemView,disposeEvent = Lifecycle.Event.ON_DESTROY)
             .subscribe {
                 EventBus.getDefault().post(
                     PostEvent(
