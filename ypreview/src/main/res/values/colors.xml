@@ -2,4 +2,5 @@
 <resources>
     <color name="colorPreviewWindowBack">#00000000</color>
     <color name="colorPreviewBack">#000000</color>
+    <color name="colorIndicator">#EC3266</color>
 </resources>

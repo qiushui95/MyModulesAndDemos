@@ -7,6 +7,7 @@ import android.view.View
 import com.alexvasilkov.gestures.animation.ViewPosition
 import com.bumptech.glide.request.RequestOptions
 import me.yangcx.preview.entity.ImageData
+import me.yangcx.preview.ui.multiple.image.ActivityMultipleImagePreview
 import me.yangcx.preview.ui.single.ActivitySingleAvatarPreview
 import me.yangcx.preview.ui.single.ActivitySingleImagePreview
 import me.yangcx.preview.varia.Constants
@@ -33,6 +34,12 @@ object ImagePreviewUtils {
         return intent
     }
 
+    private fun dontAnimate(context: Context) {
+        if (context is Activity) {
+            context.overridePendingTransition(0, 0)
+        }
+    }
+
     fun previewSingleNormal(
         context: Context,
         imageData: ImageData,
@@ -49,7 +56,9 @@ object ImagePreviewUtils {
         )
         ActivitySingleImagePreview.requestOptions = requestOptions
         context.startActivity(intent)
+        dontAnimate(context)
     }
+
     fun previewSingleAvatar(
         context: Context,
         imageData: ImageData,
@@ -66,5 +75,28 @@ object ImagePreviewUtils {
         )
         ActivitySingleAvatarPreview.requestOptions = requestOptions
         context.startActivity(intent)
+        dontAnimate(context)
+    }
+
+    fun previewMultipleImage(
+        context: Context,
+        imageList: List<ImageData>,
+        startPosition: Int,
+        containerView: View,
+        targetView: View,
+        postingTag: String,
+        requestOptions: RequestOptions = RequestOptions()
+    ) {
+        val intent = Intent(context, ActivityMultipleImagePreview::class.java)
+        intent.putExtra(Constants.KEY_IMAGE_DATA, Array(imageList.size) {
+            imageList[it]
+        })
+        intent.putExtra(Constants.KEY_VIEW_POSITION, ViewPosition.from(targetView).pack())
+        intent.putExtra(Constants.KEY_TARGET_ID, containerView.id)
+        intent.putExtra(Constants.KEY_START_POSITION, startPosition)
+        intent.putExtra(Constants.KEY_TAG_POSTING, postingTag)
+        ActivityMultipleImagePreview.requestOptions = requestOptions
+        context.startActivity(intent)
+        dontAnimate(context)
     }
 }

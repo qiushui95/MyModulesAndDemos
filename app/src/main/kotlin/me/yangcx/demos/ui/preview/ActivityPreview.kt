@@ -1,7 +1,11 @@
 package me.yangcx.demos.ui.preview
 
 import android.content.Context
+import android.util.Log
 import android.view.View
+import androidx.core.view.doOnPreDraw
+import androidx.core.view.isInvisible
+import com.alexvasilkov.gestures.animation.ViewPosition
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.flexbox.AlignItems
@@ -12,11 +16,8 @@ import me.drakeet.multitype.register
 import me.yangcx.common.extend.click
 import me.yangcx.demos.R
 import me.yangcx.demos.base.BaseActivity
-import me.yangcx.preview.entity.ImageData
-import me.yangcx.preview.entity.ImageShowType
-import me.yangcx.preview.entity.PreviewFinishedEvent
-import me.yangcx.preview.entity.PreviewStartEvent
-import me.yangcx.preview.ui.single.ActivitySingleImagePreview
+import me.yangcx.demos.entity.PostEvent
+import me.yangcx.preview.entity.*
 import me.yangcx.preview.utils.ImagePreviewUtils
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -116,7 +117,7 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
     }
 
     private fun initRecycler() {
-        adapter.register(ImageData::class, BinderImage())
+        adapter.register(ImageData::class, BinderImage(this))
         rvImage.adapter = adapter
         rvImage.layoutManager = layoutManager
         adapter.items = dataList
@@ -132,6 +133,11 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
                 ivPreviewEnd.id -> {
                     ivPreviewEnd.visibility = View.INVISIBLE
                 }
+                rvImage.id -> {
+                    rvImage.findViewHolderForAdapterPosition(previewStartEvent.position)
+                        ?.itemView
+                        ?.visibility = View.INVISIBLE
+                }
             }
         }
     }
@@ -145,6 +151,58 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
                 }
                 ivPreviewEnd.id -> {
                     ivPreviewEnd.visibility = View.VISIBLE
+                }
+                rvImage.id -> {
+                    0.until(rvImage.childCount)
+                        .map {
+                            rvImage.getChildAt(it)
+                        }.filter {
+                            it.isInvisible
+                        }.forEach {
+                            it.visibility = View.VISIBLE
+                        }
+                }
+            }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onItemClick(postEvent: PostEvent<Int>) {
+        if (postEvent.checkTag(BinderImage.TAG_ITEM_CLICK)) {
+            val position = postEvent.data
+            rvImage.findViewHolderForAdapterPosition(position)
+                ?.also {
+                    ImagePreviewUtils.previewMultipleImage(this,dataList,position,rvImage,it.itemView,postingTag)
+                }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onPreviewChange(previewChangeEvent: PreviewChangeEvent) {
+        if (previewChangeEvent.checkTag(postingTag)) {
+            val position = previewChangeEvent.position
+            when (previewChangeEvent.targetId) {
+                rvImage.id -> {
+                    0.until(rvImage.childCount)
+                        .map {
+                            rvImage.getChildAt(it)
+                        }.filter {
+                            it.isInvisible
+                        }.forEach {
+                            it.visibility = View.VISIBLE
+                        }
+                    layoutManager.scrollToPosition(position)
+                    rvImage.doOnPreDraw { _ ->
+                        rvImage.findViewHolderForAdapterPosition(position)?.also {
+                            EventBus.getDefault().post(
+                                PositionChangedEvent(
+                                    position,
+                                    ViewPosition.from(it.itemView)
+                                )
+                            )
+                            it.itemView.visibility = View.INVISIBLE
+                        }
+                    }
                 }
             }
         }

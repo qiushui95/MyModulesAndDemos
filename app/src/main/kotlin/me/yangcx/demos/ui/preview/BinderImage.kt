@@ -4,19 +4,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.google.android.flexbox.FlexboxLayoutManager
+import me.yangcx.common.extend.click
+import me.yangcx.demos.entity.PostEvent
 import me.yangcx.preview.entity.ImageData
 import me.yangcx.recycler.binder.BaseBinder
+import org.greenrobot.eventbus.EventBus
 
 /**
  * create by 97457
  * create at 2018/12/06 0006
  */
-class BinderImage : BaseBinder<ImageData>() {
+class BinderImage(lifecycleOwner: LifecycleOwner) : BaseBinder<ImageData>(lifecycleOwner) {
+    companion object {
+        const val TAG_ITEM_CLICK = "4LaSyVTTIosNdDWa"
+    }
+
     override fun createView(inflater: LayoutInflater, parent: ViewGroup): View {
         return ImageView(inflater.context)
             .apply {
@@ -32,7 +40,15 @@ class BinderImage : BaseBinder<ImageData>() {
     }
 
     override fun initThis(holder: RecyclerView.ViewHolder, itemView: View) {
-
+        lifecycleOwner.click(itemView)
+            .subscribe {
+                EventBus.getDefault().post(
+                    PostEvent(
+                        TAG_ITEM_CLICK,
+                        holder.adapterPosition
+                    )
+                )
+            }
     }
 
     override fun drawUi(holder: RecyclerView.ViewHolder, itemView: View, data: ImageData) {

@@ -5,10 +5,14 @@
         <activity
             android:name=".ui.single.ActivitySingleImagePreview"
             android:screenOrientation="behind"
-            android:theme="@style/PreviewFullStyle" />
+            android:theme="@style/ThemePreviewFull" />
         <activity
             android:name=".ui.single.ActivitySingleAvatarPreview"
             android:screenOrientation="behind"
-            android:theme="@style/PreviewFullStyle" />
+            android:theme="@style/ThemePreviewFull" />
+        <activity
+            android:name=".ui.multiple.image.ActivityMultipleImagePreview"
+            android:screenOrientation="behind"
+            android:theme="@style/ThemePreviewFull" />
     </application>
 </manifest>
