@@ -16,6 +16,7 @@ android {
         targetSdkVersion buildVersions.targetSdk
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         sourceSets {
             main.java.srcDirs += 'src/main/kotlin'
@@ -64,10 +65,20 @@ android {
             }
         }
     }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //module
+    implementation project(":ypreview")
+    implementation project(":ycommon")
+    implementation project(":yrecycler")
 
     //anko
     implementation deps.anko.common
@@ -93,6 +104,7 @@ dependencies {
 
     //view
     implementation deps.view.constraintLayout
+    implementation deps.view.flexBox
 
     //glide
     implementation deps.glide.core
@@ -120,11 +132,24 @@ dependencies {
     //utils
     implementation deps.utils.joda
     implementation deps.utils.logger
+    implementation deps.utils.background
 
     //leakCanary
     debugImplementation deps.leakCanary.debug
     debugImplementation deps.leakCanary.fragment
     releaseImplementation deps.leakCanary.release
+
+    //lifecycle
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
+    kapt deps.lifecycle.compiler
+
+    //rx
+    implementation deps.rx.java
+    implementation deps.rx.android
+
+    //rxBinding
+    implementation deps.rxBinding.core
 
     //test
     testImplementation deps.test.junit
