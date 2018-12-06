@@ -3,7 +3,11 @@
 
     <application>
         <activity
-            android:name=".ui.ActivitySingleImagePreview"
+            android:name=".ui.single.ActivitySingleImagePreview"
+            android:screenOrientation="behind"
+            android:theme="@style/PreviewFullStyle" />
+        <activity
+            android:name=".ui.single.ActivitySingleAvatarPreview"
             android:screenOrientation="behind"
             android:theme="@style/PreviewFullStyle" />
     </application>

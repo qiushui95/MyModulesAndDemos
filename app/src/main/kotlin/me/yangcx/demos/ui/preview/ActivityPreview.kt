@@ -16,7 +16,8 @@ import me.yangcx.preview.entity.ImageData
 import me.yangcx.preview.entity.ImageShowType
 import me.yangcx.preview.entity.PreviewFinishedEvent
 import me.yangcx.preview.entity.PreviewStartEvent
-import me.yangcx.preview.ui.ActivitySingleImagePreview
+import me.yangcx.preview.ui.single.ActivitySingleImagePreview
+import me.yangcx.preview.utils.ImagePreviewUtils
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -86,7 +87,7 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
             .load(endData.thumbnailData)
             .apply(
                 RequestOptions()
-                    .circleCrop()
+                    .centerCrop()
             ).into(ivPreviewEnd)
     }
 
@@ -95,7 +96,7 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
             .subscribe {
                 when (it) {
                     ivPreviewStart -> {
-                        ActivitySingleImagePreview.launch(
+                        ImagePreviewUtils.previewSingleAvatar(
                             this,
                             startData,
                             ivPreviewStart,
@@ -103,7 +104,7 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
                         )
                     }
                     ivPreviewEnd -> {
-                        ActivitySingleImagePreview.launch(
+                        ImagePreviewUtils.previewSingleAvatar(
                             this,
                             endData,
                             ivPreviewEnd,

@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@mipmap/ic_launcher" />
 
-    <ImageView
+    <com.alexvasilkov.gestures.commons.circle.CircleImageView
         android:id="@+id/ivPreviewEnd"
         style="@style/stylePreviewTopImage"
         app:layout_constraintEnd_toEndOf="parent"
