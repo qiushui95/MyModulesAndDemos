@@ -1,1 +1,1 @@
-include ':app', ':ycommon'
+include ':app', ':ycommon', ':yrecycler'
