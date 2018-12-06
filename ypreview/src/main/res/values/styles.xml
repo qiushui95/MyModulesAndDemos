@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="ThemePreviewFull" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
+    <style name="ThemePreview" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@color/colorPreviewWindowBack</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="stylePreviewBack">
@@ -25,7 +24,6 @@
     <style name="stylePreviewMultiple">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:scaleType">centerCrop</item>
     </style>
 
     <style name="stylePreviewMultipleIndicator">

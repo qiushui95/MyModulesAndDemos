@@ -24,13 +24,15 @@ object ImagePreviewUtils {
         clz: KClass<T>,
         imageData: ImageData,
         targetView: View,
-        postingTag: String
+        postingTag: String,
+        showStatus: Boolean
     ): Intent {
         val intent = Intent(context, clz.java)
         intent.putExtra(Constants.KEY_IMAGE_DATA, imageData)
         intent.putExtra(Constants.KEY_VIEW_POSITION, ViewPosition.from(targetView).pack())
         intent.putExtra(Constants.KEY_TARGET_ID, targetView.id)
         intent.putExtra(Constants.KEY_TAG_POSTING, postingTag)
+        intent.putExtra(Constants.KEY_SHOW_STATUS, showStatus)
         return intent
     }
 
@@ -45,14 +47,16 @@ object ImagePreviewUtils {
         imageData: ImageData,
         targetView: View,
         postingTag: String,
-        requestOptions: RequestOptions = RequestOptions()
+        requestOptions: RequestOptions = RequestOptions(),
+        showStatus: Boolean = false
     ) {
         val intent = createIntent(
             context,
             ActivitySingleImagePreview::class,
             imageData,
             targetView,
-            postingTag
+            postingTag,
+            showStatus
         )
         ActivitySingleImagePreview.requestOptions = requestOptions
         context.startActivity(intent)
@@ -64,14 +68,16 @@ object ImagePreviewUtils {
         imageData: ImageData,
         targetView: View,
         postingTag: String,
-        requestOptions: RequestOptions = RequestOptions()
+        requestOptions: RequestOptions = RequestOptions(),
+        showStatus: Boolean = false
     ) {
         val intent = createIntent(
             context,
             ActivitySingleAvatarPreview::class,
             imageData,
             targetView,
-            postingTag
+            postingTag,
+            showStatus
         )
         ActivitySingleAvatarPreview.requestOptions = requestOptions
         context.startActivity(intent)
@@ -85,7 +91,8 @@ object ImagePreviewUtils {
         containerView: View,
         targetView: View,
         postingTag: String,
-        requestOptions: RequestOptions = RequestOptions()
+        requestOptions: RequestOptions = RequestOptions(),
+        showStatus: Boolean = false
     ) {
         val intent = Intent(context, ActivityMultipleImagePreview::class.java)
         intent.putExtra(Constants.KEY_IMAGE_DATA, Array(imageList.size) {
@@ -95,6 +102,7 @@ object ImagePreviewUtils {
         intent.putExtra(Constants.KEY_TARGET_ID, containerView.id)
         intent.putExtra(Constants.KEY_START_POSITION, startPosition)
         intent.putExtra(Constants.KEY_TAG_POSTING, postingTag)
+        intent.putExtra(Constants.KEY_SHOW_STATUS, showStatus)
         ActivityMultipleImagePreview.requestOptions = requestOptions
         context.startActivity(intent)
         dontAnimate(context)

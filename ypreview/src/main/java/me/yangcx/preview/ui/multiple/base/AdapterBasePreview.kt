@@ -16,7 +16,7 @@ import me.yangcx.preview.utils.ImageLoadUtils
  * create by 97457
  * create at 2018/11/18 0018
  */
-abstract class AdapterBasePreview(
+internal abstract class AdapterBasePreview(
     private val inflater: LayoutInflater,
     private val requestOptions: RequestOptions,
     private val dataList: List<ImageData>
@@ -25,12 +25,15 @@ abstract class AdapterBasePreview(
     protected abstract fun createView(inflater: LayoutInflater, container: ViewGroup): View
 
     fun getGestureImageView(position: Int): GestureImageView? {
-        Log.e("==getGestureImageView=","position:$position ${getViewHolder(position)}")
         return getViewHolder(position)?.itemView as? GestureImageView
     }
 
     override fun onCreateViewHolder(container: ViewGroup): ViewHolder {
-        return RecyclePagerAdapter.ViewHolder(createView(inflater, container))
+        val itemView = createView(inflater, container)
+        if (itemView is GestureImageView){
+            itemView.controller.settings.animationsDuration=3000
+        }
+        return RecyclePagerAdapter.ViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

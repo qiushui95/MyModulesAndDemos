@@ -11,4 +11,5 @@ internal object Constants {
     const val KEY_TAG_POSTING = "GUmjKWaCjxehomOw"
     const val KEY_TARGET_ID = "QajZDANvcUxaUH5M"
     const val KEY_START_POSITION = "zi9CtNXrqilX5BBb"
+    const val KEY_SHOW_STATUS= "TwSd77Ptnx0StEV9"
 }

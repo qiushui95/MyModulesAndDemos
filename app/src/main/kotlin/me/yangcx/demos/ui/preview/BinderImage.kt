@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -35,12 +36,12 @@ class BinderImage(lifecycleOwner: LifecycleOwner) : BaseBinder<ImageData>(lifecy
                     setMargins(2, 2, 2, 2)
                     flexGrow = 1f
                 }
-                scaleType = ImageView.ScaleType.CENTER_CROP
+                adjustViewBounds = true
             }
     }
 
     override fun initThis(holder: RecyclerView.ViewHolder, itemView: View) {
-        lifecycleOwner.click(itemView)
+        lifecycleOwner.click(itemView, disposeEvent = Lifecycle.Event.ON_DESTROY)
             .subscribe {
                 EventBus.getDefault().post(
                     PostEvent(
@@ -56,7 +57,6 @@ class BinderImage(lifecycleOwner: LifecycleOwner) : BaseBinder<ImageData>(lifecy
             .load(data.thumbnailData)
             .apply(
                 RequestOptions()
-                    .override(Target.SIZE_ORIGINAL)
                     .dontTransform()
             ).into(itemView as ImageView)
     }

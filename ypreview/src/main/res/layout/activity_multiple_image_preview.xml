@@ -8,14 +8,14 @@
         style="@style/stylePreviewBack"
         android:visibility="visible" />
 
-    <com.alexvasilkov.gestures.views.GestureImageView
+    <ImageView
         android:id="@+id/ivMultipleImage"
-        style="@style/stylePreviewSingle" />
+        style="@style/stylePreviewSingle"
+        android:visibility="visible" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vpMultipleImage"
-        style="@style/stylePreviewSingle"
-        android:visibility="visible" />
+        style="@style/stylePreviewSingle" />
 
     <TextView
         android:id="@+id/tvMultipleIndicator"
