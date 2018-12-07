@@ -1,11 +1,9 @@
 package me.yangcx.preview.glide
 
 import android.graphics.*
-import android.util.Log
 import com.alexvasilkov.gestures.animation.ViewPosition
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
-import com.bumptech.glide.load.resource.bitmap.TransformationUtils
 import java.security.MessageDigest
 
 /**
@@ -38,12 +36,6 @@ class ImageCutTransformation(private val viewPosition: ViewPosition) : BitmapTra
         outWidth: Int,
         outHeight: Int
     ): Bitmap {
-        val centerCrop = TransformationUtils.centerCrop(
-            pool,
-            resource,
-            viewPosition.view.width(),
-            viewPosition.view.height()
-        )
         val visible = viewPosition.visible
         val view = viewPosition.view
         src.left = visible.left - view.left
@@ -52,7 +44,7 @@ class ImageCutTransformation(private val viewPosition: ViewPosition) : BitmapTra
         src.bottom = src.top + visible.height()
         val result = Bitmap.createBitmap(dst.width(), dst.height(), Bitmap.Config.ARGB_8888)
         Canvas(result).apply {
-            drawBitmap(centerCrop, src, dst, paint)
+            drawBitmap(resource, src, dst, paint)
         }
         return result
     }

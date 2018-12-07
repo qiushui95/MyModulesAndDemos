@@ -6,7 +6,7 @@
     <View
         android:id="@+id/backMultipleImagePreview"
         style="@style/stylePreviewBack"
-        android:visibility="visible" />
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/ivMultipleImage"

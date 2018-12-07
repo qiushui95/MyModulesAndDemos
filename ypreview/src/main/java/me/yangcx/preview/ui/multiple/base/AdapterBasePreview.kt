@@ -1,6 +1,5 @@
 package me.yangcx.preview.ui.multiple.base
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,11 +28,7 @@ internal abstract class AdapterBasePreview(
     }
 
     override fun onCreateViewHolder(container: ViewGroup): ViewHolder {
-        val itemView = createView(inflater, container)
-        if (itemView is GestureImageView){
-            itemView.controller.settings.animationsDuration=3000
-        }
-        return RecyclePagerAdapter.ViewHolder(itemView)
+        return RecyclePagerAdapter.ViewHolder(createView(inflater, container))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

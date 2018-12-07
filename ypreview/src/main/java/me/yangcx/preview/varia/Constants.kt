@@ -7,6 +7,7 @@ package me.yangcx.preview.varia
  */
 internal object Constants {
     const val KEY_IMAGE_DATA = "aGRo14YllF0vVfe9"
+    const val KEY_IMAGE_DATA_LIST = "uuidUF9PjhUp8by3"
     const val KEY_VIEW_POSITION = "sX0KEwcfKzULCbT8"
     const val KEY_TAG_POSTING = "GUmjKWaCjxehomOw"
     const val KEY_TARGET_ID = "QajZDANvcUxaUH5M"

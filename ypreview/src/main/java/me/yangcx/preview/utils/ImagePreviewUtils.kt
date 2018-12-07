@@ -3,7 +3,9 @@ package me.yangcx.preview.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.view.View
+import androidx.core.graphics.applyCanvas
 import com.alexvasilkov.gestures.animation.ViewPosition
 import com.bumptech.glide.request.RequestOptions
 import me.yangcx.preview.entity.ImageData
@@ -11,6 +13,8 @@ import me.yangcx.preview.ui.multiple.image.ActivityMultipleImagePreview
 import me.yangcx.preview.ui.single.ActivitySingleAvatarPreview
 import me.yangcx.preview.ui.single.ActivitySingleImagePreview
 import me.yangcx.preview.varia.Constants
+import java.io.File
+import java.util.*
 import kotlin.reflect.KClass
 
 /**
@@ -95,9 +99,10 @@ object ImagePreviewUtils {
         showStatus: Boolean = false
     ) {
         val intent = Intent(context, ActivityMultipleImagePreview::class.java)
-        intent.putExtra(Constants.KEY_IMAGE_DATA, Array(imageList.size) {
+        intent.putExtra(Constants.KEY_IMAGE_DATA_LIST, Array(imageList.size) {
             imageList[it]
         })
+        intent.putExtra(Constants.KEY_IMAGE_DATA, saveImageBitmap(targetView))
         intent.putExtra(Constants.KEY_VIEW_POSITION, ViewPosition.from(targetView).pack())
         intent.putExtra(Constants.KEY_TARGET_ID, containerView.id)
         intent.putExtra(Constants.KEY_START_POSITION, startPosition)
@@ -106,5 +111,36 @@ object ImagePreviewUtils {
         ActivityMultipleImagePreview.requestOptions = requestOptions
         context.startActivity(intent)
         dontAnimate(context)
+    }
+
+    private const val NAME_VIEW_BITMAP = "ViewPreview"
+    fun saveImageBitmap(view: View): String {
+        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+        bitmap.applyCanvas {
+            view.draw(this)
+        }
+        val bitmapDir = File(view.context.cacheDir, NAME_VIEW_BITMAP)
+        if (!bitmapDir.exists()) {
+            bitmapDir.mkdirs()
+        }
+        val bitmapFile = File(bitmapDir, "${UUID.randomUUID()}.png")
+        bitmapFile.createNewFile()
+        val outputStream = bitmapFile.outputStream()
+        try {
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        } catch (e: Exception) {
+
+        } finally {
+            outputStream.close()
+        }
+        return bitmapFile.absolutePath
+    }
+
+    internal fun cleanViewBitmaps(context: Context) {
+        val bitmapDir = File(context.cacheDir, NAME_VIEW_BITMAP)
+        bitmapDir.listFiles()
+            .forEach {
+                it.deleteOnExit()
+            }
     }
 }

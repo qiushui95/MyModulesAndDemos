@@ -1,5 +1,6 @@
 package me.yangcx.demos.ui.preview
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,8 +36,8 @@ class BinderImage(lifecycleOwner: LifecycleOwner) : BaseBinder<ImageData>(lifecy
                 ).apply {
                     setMargins(2, 2, 2, 2)
                     flexGrow = 1f
+                    scaleType=ImageView.ScaleType.CENTER_CROP
                 }
-                adjustViewBounds = true
             }
     }
 

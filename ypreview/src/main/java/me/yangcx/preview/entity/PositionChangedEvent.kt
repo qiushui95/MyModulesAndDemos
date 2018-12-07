@@ -8,6 +8,6 @@ import com.alexvasilkov.gestures.animation.ViewPosition
  * create at 2018/12/06
  */
 data class PositionChangedEvent(
-    val position: Int,
+    val viewBitmapPath: String,
     val viewPosition: ViewPosition
 )

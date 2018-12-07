@@ -3,6 +3,7 @@ package me.yangcx.demos.ui.preview
 import android.content.Context
 import android.util.Log
 import android.view.View
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isInvisible
 import com.alexvasilkov.gestures.animation.ViewPosition
@@ -11,6 +12,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.android.synthetic.main.activity_preview.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import me.drakeet.multitype.MultiTypeAdapter
 import me.drakeet.multitype.register
 import me.yangcx.common.extend.click
@@ -97,7 +101,7 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
             .subscribe {
                 when (it) {
                     ivPreviewStart -> {
-                        ImagePreviewUtils.previewSingleAvatar(
+                        ImagePreviewUtils.previewSingleNormal(
                             this,
                             startData,
                             ivPreviewStart,
@@ -172,7 +176,7 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
             val position = postEvent.data
             rvImage.findViewHolderForAdapterPosition(position)
                 ?.also {
-                    ImagePreviewUtils.previewMultipleImage(this,dataList,position,rvImage,it.itemView,postingTag)
+                    ImagePreviewUtils.previewMultipleImage(this, dataList, position, rvImage, it.itemView, postingTag)
                 }
         }
     }
@@ -194,12 +198,15 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
                     layoutManager.scrollToPosition(position)
                     rvImage.doOnPreDraw { _ ->
                         rvImage.findViewHolderForAdapterPosition(position)?.also {
-                            EventBus.getDefault().post(
-                                PositionChangedEvent(
-                                    position,
-                                    ViewPosition.from(it.itemView)
+                            GlobalScope.launch(Dispatchers.IO) {
+                                val imageBitmap = ImagePreviewUtils.saveImageBitmap(it.itemView)
+                                EventBus.getDefault().post(
+                                    PositionChangedEvent(
+                                        imageBitmap,
+                                        ViewPosition.from(it.itemView)
+                                    )
                                 )
-                            )
+                            }
                             it.itemView.visibility = View.INVISIBLE
                         }
                     }

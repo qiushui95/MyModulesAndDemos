@@ -1,5 +1,6 @@
 package me.yangcx.common.extend
 
+import android.util.Log
 import android.view.View
 import androidx.annotation.CheckResult
 import androidx.appcompat.app.AppCompatActivity

@@ -4,7 +4,6 @@
     <style name="ThemePreview" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@color/colorPreviewWindowBack</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="stylePreviewBack">
@@ -34,6 +33,7 @@
         <item name="android:layout_marginBottom">16dp</item>
         <item name="android:textColor">@color/colorIndicator</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:visibility">invisible</item>
     </style>
 
 </resources>
