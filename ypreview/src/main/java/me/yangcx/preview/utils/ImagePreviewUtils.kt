@@ -137,10 +137,6 @@ object ImagePreviewUtils {
     }
 
     internal fun cleanViewBitmaps(context: Context) {
-        val bitmapDir = File(context.cacheDir, NAME_VIEW_BITMAP)
-        bitmapDir.listFiles()
-            .forEach {
-                it.deleteOnExit()
-            }
+        File(context.cacheDir, NAME_VIEW_BITMAP).deleteRecursively()
     }
 }
