@@ -28,7 +28,7 @@ internal object ImageLoadUtils {
         val originRequest = Glide.with(imageView)
             .load(imageData.origin)
             .apply(options)
-        when (imageData.showType) {
+        when (imageData.imageShowType) {
             ImageShowType.ALL -> originRequest.thumbnail(thumbnailRequest).into(imageView)
             ImageShowType.JUST_THUMBNAIL -> thumbnailRequest.into(imageView)
             ImageShowType.JUST_ORIGIN -> originRequest.into(imageView)

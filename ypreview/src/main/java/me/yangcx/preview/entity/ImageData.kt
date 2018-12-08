@@ -14,7 +14,7 @@ data class ImageData(
     //原图数据
     val origin: String,
     //图片显示策略
-    val showType: ImageShowType
+    val imageShowType: ImageShowType
 ) : Parcelable {
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     constructor(parcel: Parcel) : this(
@@ -26,7 +26,7 @@ data class ImageData(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(thumbnailData)
         parcel.writeString(origin)
-        parcel.writeString(showType.name)
+        parcel.writeString(imageShowType.name)
     }
 
     override fun describeContents(): Int {

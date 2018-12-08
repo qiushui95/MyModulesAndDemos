@@ -21,6 +21,7 @@ import me.yangcx.common.extend.click
 import me.yangcx.demos.R
 import me.yangcx.demos.base.BaseActivity
 import me.yangcx.demos.entity.PostEvent
+import me.yangcx.demos.varia.Constants
 import me.yangcx.preview.entity.*
 import me.yangcx.preview.utils.ImagePreviewUtils
 import org.greenrobot.eventbus.EventBus
@@ -43,21 +44,12 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
     private val postingTag by lazy {
         "05zBAT8OHl0xZ50A"
     }
-    private val dataList by lazy {
-        (1..29).map {
-            ImageData(
-                "http://45.32.19.133/WebImages/thumbnail/Image$it.webp",
-                "http://45.32.19.133/WebImages/origin/Image$it.webp",
-                ImageShowType.JUST_THUMBNAIL
-            )
-        }
-    }
 
     private val startData by lazy {
-        dataList.random()
+        Constants.imageList.random()
     }
     private val endData by lazy {
-        dataList.random()
+        Constants.imageList.random()
     }
     private val adapter by lazy {
         MultiTypeAdapter()
@@ -124,7 +116,7 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
         adapter.register(ImageData::class, BinderImage(this))
         rvImage.adapter = adapter
         rvImage.layoutManager = layoutManager
-        adapter.items = dataList
+        adapter.items = Constants.imageList
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -176,7 +168,7 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
             val position = postEvent.data
             rvImage.findViewHolderForAdapterPosition(position)
                 ?.also {
-                    ImagePreviewUtils.previewMultipleImage(this, dataList, position, rvImage, it.itemView, postingTag)
+                    ImagePreviewUtils.previewMultipleImage(this, Constants.imageList, position, rvImage, it.itemView, postingTag)
                 }
         }
     }
