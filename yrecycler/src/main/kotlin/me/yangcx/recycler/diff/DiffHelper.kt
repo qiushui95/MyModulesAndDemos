@@ -1,7 +1,6 @@
 package me.yangcx.recycler.diff
 
 import androidx.recyclerview.widget.DiffUtil
-import me.yangcx.recycler.diff.Diffable
 
 /**
  * 内容比较实现

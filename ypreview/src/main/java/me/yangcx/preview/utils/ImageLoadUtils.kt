@@ -20,14 +20,14 @@ internal object ImageLoadUtils {
      */
     fun loadImage(imageData: ImageData, imageView: ImageView, requestOptions: RequestOptions) {
         val options = requestOptions.clone()
-            .override(Target.SIZE_ORIGINAL)
-            .dontAnimate()
+                .override(Target.SIZE_ORIGINAL)
+                .dontAnimate()
         val thumbnailRequest = Glide.with(imageView)
-            .load(imageData.thumbnailData)
-            .apply(options)
+                .load(imageData.thumbnailData)
+                .apply(options)
         val originRequest = Glide.with(imageView)
-            .load(imageData.origin)
-            .apply(options)
+                .load(imageData.origin)
+                .apply(options)
         when (imageData.imageShowType) {
             ImageShowType.ALL -> originRequest.thumbnail(thumbnailRequest).into(imageView)
             ImageShowType.JUST_THUMBNAIL -> thumbnailRequest.into(imageView)

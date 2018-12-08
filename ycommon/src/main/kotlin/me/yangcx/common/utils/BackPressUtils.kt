@@ -1,7 +1,6 @@
 package me.yangcx.common.utils
 
 import android.app.Activity
-import android.content.Context
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.uber.autodispose.AutoDispose

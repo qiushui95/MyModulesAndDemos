@@ -51,11 +51,11 @@ object SystemUiUtils {
      * create at 2018/11/11 0011
      */
     fun fitStatus(
-        view: View, isFits: Boolean = !(view.getTag(R.id.idTagFitStatus)?.toString()
-            ?: "false").toBoolean()
+            view: View, isFits: Boolean = !(view.getTag(R.id.idTagFitStatus)?.toString()
+                    ?: "false").toBoolean()
     ) {
         val hasFit = (view.getTag(R.id.idTagFitStatus)?.toString()
-            ?: "false").toBoolean()
+                ?: "false").toBoolean()
         if (isCanHaveTransparentDecor() && hasFit != isFits) {
             val statusHeight = getStatusHeight()
             val paddingTop = view.paddingTop
@@ -83,11 +83,11 @@ object SystemUiUtils {
      * create at 2018/11/11 0011
      */
     fun fitNavigation(
-        view: View, isFits: Boolean = !(view.getTag(R.id.idTagFitNavigation)?.toString()
-            ?: "false").toBoolean()
+            view: View, isFits: Boolean = !(view.getTag(R.id.idTagFitNavigation)?.toString()
+                    ?: "false").toBoolean()
     ) {
         val hasFit = (view.getTag(R.id.idTagFitNavigation)?.toString()
-            ?: "false").toBoolean()
+                ?: "false").toBoolean()
         if (isCanHaveTransparentDecor() && hasFit != isFits) {
             val navigationHeight = getNavigationHeight()
             val paddingBottom = view.paddingBottom

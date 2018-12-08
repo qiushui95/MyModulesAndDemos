@@ -38,8 +38,6 @@ abstract class FoundationFragment(@LayoutRes private val layoutRes: Int) : Fragm
     abstract fun bindViewListener()
 
 
-
-
     override fun onResume() {
         super.onResume()
         initThis()

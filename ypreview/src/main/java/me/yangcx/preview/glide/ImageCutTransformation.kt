@@ -30,12 +30,7 @@ class ImageCutTransformation(private val viewPosition: ViewPosition) : BitmapTra
 
     }
 
-    override fun transform(
-        pool: BitmapPool,
-        resource: Bitmap,
-        outWidth: Int,
-        outHeight: Int
-    ): Bitmap {
+    override fun transform(pool: BitmapPool, resource: Bitmap, outWidth: Int, outHeight: Int): Bitmap {
         val visible = viewPosition.visible
         val view = viewPosition.view
         src.left = visible.left - view.left

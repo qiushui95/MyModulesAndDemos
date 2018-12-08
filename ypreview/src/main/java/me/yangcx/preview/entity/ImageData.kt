@@ -9,18 +9,18 @@ import android.os.Parcelable
  * create at 2018/12/06 0006
  */
 data class ImageData(
-    //缩略图数据
-    val thumbnailData: String,
-    //原图数据
-    val origin: String,
-    //图片显示策略
-    val imageShowType: ImageShowType
+        //缩略图数据
+        val thumbnailData: String,
+        //原图数据
+        val origin: String,
+        //图片显示策略
+        val imageShowType: ImageShowType
 ) : Parcelable {
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString(),
-        ImageShowType.valueOf(parcel.readString())
+            parcel.readString(),
+            parcel.readString(),
+            ImageShowType.valueOf(parcel.readString())
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

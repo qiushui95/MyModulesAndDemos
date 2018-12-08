@@ -19,9 +19,9 @@ object Constants {
     val imageList by lazy {
         (1..29).map {
             ImageData(
-                String.format(URL_THUMBNAIL_FORMAT, it),
-                String.format(URL_ORIGIN_FORMAT, it),
-                ImageShowType.ALL
+                    String.format(URL_THUMBNAIL_FORMAT, it),
+                    String.format(URL_ORIGIN_FORMAT, it),
+                    ImageShowType.ALL
             )
         }
     }

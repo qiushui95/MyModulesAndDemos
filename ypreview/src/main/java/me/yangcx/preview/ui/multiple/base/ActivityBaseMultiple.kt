@@ -27,13 +27,13 @@ import org.greenrobot.eventbus.ThreadMode
  * create at 2018/12/06 0006
  */
 internal abstract class ActivityBaseMultiple(@LayoutRes private val layoutRes: Int) : AppCompatActivity(),
-    ViewPager.OnPageChangeListener {
+        ViewPager.OnPageChangeListener {
 
     protected val imageList by lazy {
         intent.getParcelableArrayExtra(Constants.KEY_IMAGE_DATA_LIST)
-            .mapNotNull {
-                it as? ImageData
-            }
+                .mapNotNull {
+                    it as? ImageData
+                }
     }
     private val startPosition by lazy {
         intent.getIntExtra(Constants.KEY_START_POSITION, 0)
@@ -63,33 +63,33 @@ internal abstract class ActivityBaseMultiple(@LayoutRes private val layoutRes: I
 
     private val animator by lazy {
         GestureTransitions.from<Int>(ivMultipleImage)
-            .into(vpMultipleImage, pagerTrack)
-            .apply {
-                addPositionUpdateListener { position, isLeaving ->
-                    val finished = isLeaving && position == 0f
-                    val entered = !isLeaving && position == 1f
-                    if (finished && backMultipleImagePreview.isVisible) {
-                        backMultipleImagePreview.visibility = View.INVISIBLE
-                    } else if (!finished && backMultipleImagePreview.isInvisible) {
-                        backMultipleImagePreview.visibility = View.VISIBLE
-                    }
-                    backMultipleImagePreview.alpha = position
+                .into(vpMultipleImage, pagerTrack)
+                .apply {
+                    addPositionUpdateListener { position, isLeaving ->
+                        val finished = isLeaving && position == 0f
+                        val entered = !isLeaving && position == 1f
+                        if (finished && backMultipleImagePreview.isVisible) {
+                            backMultipleImagePreview.visibility = View.INVISIBLE
+                        } else if (!finished && backMultipleImagePreview.isInvisible) {
+                            backMultipleImagePreview.visibility = View.VISIBLE
+                        }
+                        backMultipleImagePreview.alpha = position
 
-                    if (entered && tvMultipleIndicator.isInvisible) {
-                        tvMultipleIndicator.visibility = View.VISIBLE
-                    } else {
-                        tvMultipleIndicator.visibility = View.INVISIBLE
-                    }
+                        if (entered && tvMultipleIndicator.isInvisible) {
+                            tvMultipleIndicator.visibility = View.VISIBLE
+                        } else {
+                            tvMultipleIndicator.visibility = View.INVISIBLE
+                        }
 
-                    if (finished) {
-                        EventBus.getDefault().post(PreviewFinishedEvent(postingTag, containerId))
-                        runOnNextFrame {
-                            finish()
-                            overridePendingTransition(0, 0)
+                        if (finished) {
+                            EventBus.getDefault().post(PreviewFinishedEvent(postingTag, containerId))
+                            runOnNextFrame {
+                                finish()
+                                overridePendingTransition(0, 0)
+                            }
                         }
                     }
                 }
-            }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,7 +103,7 @@ internal abstract class ActivityBaseMultiple(@LayoutRes private val layoutRes: I
         ivMultipleImage.doOnLayout {
             runOnNextFrame {
                 EventBus.getDefault()
-                    .post(PreviewStartEvent(postingTag, containerId, startPosition))
+                        .post(PreviewStartEvent(postingTag, containerId, startPosition))
                 animator.enter(startPosition, true)
                 drawIndicator(startPosition)
             }
@@ -144,12 +144,12 @@ internal abstract class ActivityBaseMultiple(@LayoutRes private val layoutRes: I
 
     private fun loadBelow(filePath: String) {
         Glide.with(this)
-            .load(filePath)
-            .apply(
-                RequestOptions()
-                    .transforms(ImageCutTransformation(viewPosition))
-                    .dontAnimate()
-            ).into(ivMultipleImage)
+                .load(filePath)
+                .apply(
+                        RequestOptions()
+                                .transforms(ImageCutTransformation(viewPosition))
+                                .dontAnimate()
+                ).into(ivMultipleImage)
     }
 
     override fun onBackPressed() {

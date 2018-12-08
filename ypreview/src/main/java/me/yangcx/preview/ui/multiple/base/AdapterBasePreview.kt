@@ -15,11 +15,7 @@ import me.yangcx.preview.utils.ImageLoadUtils
  * create by 97457
  * create at 2018/11/18 0018
  */
-internal abstract class AdapterBasePreview(
-    private val inflater: LayoutInflater,
-    private val requestOptions: RequestOptions,
-    private val dataList: List<ImageData>
-) : RecyclePagerAdapter<RecyclePagerAdapter.ViewHolder>() {
+internal abstract class AdapterBasePreview(private val inflater: LayoutInflater, private val requestOptions: RequestOptions, private val dataList: List<ImageData>) : RecyclePagerAdapter<RecyclePagerAdapter.ViewHolder>() {
 
     protected abstract fun createView(inflater: LayoutInflater, container: ViewGroup): View
 

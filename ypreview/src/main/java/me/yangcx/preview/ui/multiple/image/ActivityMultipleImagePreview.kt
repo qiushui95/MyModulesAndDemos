@@ -11,7 +11,7 @@ import me.yangcx.preview.ui.multiple.base.AdapterBasePreview
  * create at 2018/12/06 0006
  */
 internal class ActivityMultipleImagePreview :
-    ActivityBaseMultiple(R.layout.activity_multiple_image_preview) {
+        ActivityBaseMultiple(R.layout.activity_multiple_image_preview) {
     companion object {
         internal lateinit var requestOptions: RequestOptions
     }

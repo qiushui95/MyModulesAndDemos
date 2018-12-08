@@ -8,9 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import me.drakeet.multitype.ItemViewBinder
 import me.yangcx.recycler.holder.BaseHolder
 
-abstract class BaseBinder<T>(protected val lifecycleOwner: LifecycleOwner) :
-    ItemViewBinder<T, RecyclerView.ViewHolder>() {
-
+abstract class BaseBinder<T : Any>(protected val lifecycleOwner: LifecycleOwner) : ItemViewBinder<T, RecyclerView.ViewHolder>() {
+    protected lateinit var data: T
     /**
      * 创建显示View
      */
@@ -29,33 +28,22 @@ abstract class BaseBinder<T>(protected val lifecycleOwner: LifecycleOwner) :
     /**
      * 数据局部变化、重绘局部界面
      */
-    protected open fun uiChanged(
-        holder: RecyclerView.ViewHolder,
-        itemView: View,
-        data: T,
-        changeList: List<String>
-    ) {
-
+    protected open fun uiChanged(holder: RecyclerView.ViewHolder, itemView: View, data: T, changeList: List<String>) {
     }
 
-    override fun onCreateViewHolder(
-        inflater: LayoutInflater,
-        parent: ViewGroup
-    ): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): RecyclerView.ViewHolder {
         val holder = BaseHolder(createView(inflater, parent))
         initThis(holder, holder.itemView)
         return holder
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: T) {
+        this.data = item
         drawUi(holder, holder.itemView, item)
     }
 
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        item: T,
-        changeList: MutableList<Any>
-    ) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: T, changeList: MutableList<Any>) {
+        this.data = item
         val firstItem = changeList.firstOrNull()
         @Suppress("UNCHECKED_CAST")
         val list = firstItem as? List<String>

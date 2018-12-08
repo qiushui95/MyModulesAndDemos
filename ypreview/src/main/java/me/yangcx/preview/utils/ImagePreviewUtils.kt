@@ -23,14 +23,7 @@ import kotlin.reflect.KClass
  * create at 2018/12/06
  */
 object ImagePreviewUtils {
-    private inline fun <reified T : Activity> createIntent(
-        context: Context,
-        clz: KClass<T>,
-        imageData: ImageData,
-        targetView: View,
-        postingTag: String,
-        showStatus: Boolean
-    ): Intent {
+    private inline fun <reified T : Activity> createIntent(context: Context, clz: KClass<T>, imageData: ImageData, targetView: View, postingTag: String, showStatus: Boolean): Intent {
         val intent = Intent(context, clz.java)
         intent.putExtra(Constants.KEY_IMAGE_DATA, imageData)
         intent.putExtra(Constants.KEY_VIEW_POSITION, ViewPosition.from(targetView).pack())
@@ -46,58 +39,21 @@ object ImagePreviewUtils {
         }
     }
 
-    fun previewSingleNormal(
-        context: Context,
-        imageData: ImageData,
-        targetView: View,
-        postingTag: String,
-        requestOptions: RequestOptions = RequestOptions(),
-        showStatus: Boolean = false
-    ) {
-        val intent = createIntent(
-            context,
-            ActivitySingleImagePreview::class,
-            imageData,
-            targetView,
-            postingTag,
-            showStatus
-        )
+    fun previewSingleNormal(context: Context, imageData: ImageData, targetView: View, postingTag: String, requestOptions: RequestOptions = RequestOptions(), showStatus: Boolean = false) {
+        val intent = createIntent(context, ActivitySingleImagePreview::class, imageData, targetView, postingTag, showStatus)
         ActivitySingleImagePreview.requestOptions = requestOptions
         context.startActivity(intent)
         dontAnimate(context)
     }
 
-    fun previewSingleAvatar(
-        context: Context,
-        imageData: ImageData,
-        targetView: View,
-        postingTag: String,
-        requestOptions: RequestOptions = RequestOptions(),
-        showStatus: Boolean = false
-    ) {
-        val intent = createIntent(
-            context,
-            ActivitySingleAvatarPreview::class,
-            imageData,
-            targetView,
-            postingTag,
-            showStatus
-        )
+    fun previewSingleAvatar(context: Context, imageData: ImageData, targetView: View, postingTag: String, requestOptions: RequestOptions = RequestOptions(), showStatus: Boolean = false) {
+        val intent = createIntent(context, ActivitySingleAvatarPreview::class, imageData, targetView, postingTag, showStatus)
         ActivitySingleAvatarPreview.requestOptions = requestOptions
         context.startActivity(intent)
         dontAnimate(context)
     }
 
-    fun previewMultipleImage(
-        context: Context,
-        imageList: List<ImageData>,
-        startPosition: Int,
-        containerView: View,
-        targetView: View,
-        postingTag: String,
-        requestOptions: RequestOptions = RequestOptions(),
-        showStatus: Boolean = false
-    ) {
+    fun previewMultipleImage(context: Context, imageList: List<ImageData>, startPosition: Int, containerView: View, targetView: View, postingTag: String, requestOptions: RequestOptions = RequestOptions(), showStatus: Boolean = false) {
         val intent = Intent(context, ActivityMultipleImagePreview::class.java)
         intent.putExtra(Constants.KEY_IMAGE_DATA_LIST, Array(imageList.size) {
             imageList[it]

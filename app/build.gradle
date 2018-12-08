@@ -134,6 +134,7 @@ dependencies {
     implementation deps.utils.joda
     implementation deps.utils.logger
     implementation deps.utils.background
+    implementation deps.utils.randomColor
 
     //leakCanary
     debugImplementation deps.leakCanary.debug

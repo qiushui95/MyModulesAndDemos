@@ -42,7 +42,7 @@ internal abstract class ActivityBaseSingle(@LayoutRes private val layoutRes: Int
     }
 
     private val showStatus by lazy {
-        intent.getBooleanExtra(Constants.KEY_SHOW_STATUS,false)
+        intent.getBooleanExtra(Constants.KEY_SHOW_STATUS, false)
     }
 
 
@@ -53,8 +53,8 @@ internal abstract class ActivityBaseSingle(@LayoutRes private val layoutRes: Int
         EventBus.getDefault().register(this)
         givSingleImage.positionAnimator.addPositionUpdateListener(this::onPositionUpdate)
         ImageLoadUtils.loadImage(
-            imageData, givSingleImage,
-            requestOptions
+                imageData, givSingleImage,
+                requestOptions
         )
         givSingleImage.doOnPreDraw {
             runOnNextFrame {
