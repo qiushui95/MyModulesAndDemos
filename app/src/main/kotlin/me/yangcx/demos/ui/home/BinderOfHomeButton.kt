@@ -18,7 +18,7 @@ import org.greenrobot.eventbus.EventBus
  * create by 9745
  * create at 2018/12/08 0008
  */
-class BinderHomeButton(lifecycleOwner: LifecycleOwner) : BaseResBinder<HomeButtonInfo<*>>(R.layout.item_home_button, lifecycleOwner) {
+class BinderOfHomeButton(lifecycleOwner: LifecycleOwner) : BaseResBinder<HomeButtonInfo<*>>(R.layout.item_home_button, lifecycleOwner) {
     companion object {
         const val TAG_ITEM_CLICK = "C4Rn2xO1pwg7VAGo9OoGLEA9uEYsuJju"
     }

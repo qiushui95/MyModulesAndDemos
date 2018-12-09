@@ -2,7 +2,6 @@ package me.yangcx.demos.ui.home
 
 import android.app.Activity
 import android.content.Intent
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.android.synthetic.main.activity_home.*
 import me.drakeet.multitype.MultiTypeAdapter
@@ -13,14 +12,12 @@ import me.yangcx.demos.entity.PostEvent
 import me.yangcx.demos.varia.IEventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeActivity : ViewModelActivity(R.layout.activity_home), IEventBus {
-    private val viewModel by lazy {
-        ViewModelProviders.of(this).get(ViewModelHome::class.java)
-    }
-    private val adapter by lazy {
-        MultiTypeAdapter()
-    }
+class ActivityOfHome : ViewModelActivity(R.layout.activity_home), IEventBus {
+    private val viewModel by viewModel<ViewModelOfHome>()
+    private val adapter by inject<MultiTypeAdapter>()
 
     override fun initAfterUi() {
         initRecycler()
@@ -38,7 +35,7 @@ class HomeActivity : ViewModelActivity(R.layout.activity_home), IEventBus {
     }
 
     private fun initRecycler() {
-        adapter.register(HomeButtonInfo::class.java, BinderHomeButton(this))
+        adapter.register(HomeButtonInfo::class.java, BinderOfHomeButton(this))
         rvHome.layoutManager = FlexboxLayoutManager(this)
         rvHome.adapter = adapter
     }

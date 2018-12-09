@@ -3,7 +3,6 @@ package me.yangcx.preview.utils
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 import me.yangcx.preview.entity.ImageData
 import me.yangcx.preview.entity.ImageShowType
 
@@ -20,14 +19,13 @@ internal object ImageLoadUtils {
      */
     fun loadImage(imageData: ImageData, imageView: ImageView, requestOptions: RequestOptions) {
         val options = requestOptions.clone()
-                .override(Target.SIZE_ORIGINAL)
-                .dontAnimate()
+            .dontAnimate()
         val thumbnailRequest = Glide.with(imageView)
-                .load(imageData.thumbnailData)
-                .apply(options)
+            .load(imageData.thumbnailData)
+            .apply(options)
         val originRequest = Glide.with(imageView)
-                .load(imageData.origin)
-                .apply(options)
+            .load(imageData.origin)
+            .apply(options)
         when (imageData.imageShowType) {
             ImageShowType.ALL -> originRequest.thumbnail(thumbnailRequest).into(imageView)
             ImageShowType.JUST_THUMBNAIL -> thumbnailRequest.into(imageView)

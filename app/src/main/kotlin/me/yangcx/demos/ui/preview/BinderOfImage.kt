@@ -20,7 +20,7 @@ import org.greenrobot.eventbus.EventBus
  * create by 97457
  * create at 2018/12/06 0006
  */
-class BinderImage(lifecycleOwner: LifecycleOwner) : BaseBinder<ImageData>(lifecycleOwner) {
+class BinderOfImage(lifecycleOwner: LifecycleOwner) : BaseBinder<ImageData>(lifecycleOwner) {
     companion object {
         const val TAG_ITEM_CLICK = "4LaSyVTTIosNdDWa"
     }

@@ -1,6 +1,5 @@
 package me.yangcx.demos.ui.preview
 
-import android.content.Context
 import android.view.View
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isInvisible
@@ -25,20 +24,14 @@ import me.yangcx.preview.utils.ImagePreviewUtils
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.jetbrains.anko.startActivity
+import org.koin.android.ext.android.inject
 
 /**
  * 预览展示界面
  * create by 97457
  * create at 2018/12/06 0006
  */
-class ActivityPreview : BaseActivity(R.layout.activity_preview) {
-    companion object {
-        fun launch(context: Context) {
-            context.startActivity<ActivityPreview>()
-        }
-    }
-
+class ActivityOfPreview : BaseActivity(R.layout.activity_preview) {
     private val postingTag by lazy {
         "05zBAT8OHl0xZ50A"
     }
@@ -49,9 +42,7 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
     private val endData by lazy {
         Constants.imageList.random()
     }
-    private val adapter by lazy {
-        MultiTypeAdapter()
-    }
+    private val adapter by inject<MultiTypeAdapter>()
 
     private val layoutManager by lazy {
         FlexboxLayoutManager(this).apply {
@@ -72,46 +63,46 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
 
     private fun loadTop() {
         Glide.with(this)
-                .load(startData.thumbnailData)
-                .apply(
-                        RequestOptions()
-                                .centerCrop()
-                ).into(ivPreviewStart)
+            .load(startData.thumbnailData)
+            .apply(
+                RequestOptions()
+                    .centerCrop()
+            ).into(ivPreviewStart)
 
         Glide.with(this)
-                .load(endData.thumbnailData)
-                .apply(
-                        RequestOptions()
-                                .centerCrop()
-                ).into(ivPreviewEnd)
+            .load(endData.thumbnailData)
+            .apply(
+                RequestOptions()
+                    .centerCrop()
+            ).into(ivPreviewEnd)
     }
 
     override fun onBindViewListener() {
         click(ivPreviewStart, ivPreviewEnd)
-                .subscribe {
-                    when (it) {
-                        ivPreviewStart -> {
-                            ImagePreviewUtils.previewSingleNormal(
-                                    this,
-                                    startData,
-                                    ivPreviewStart,
-                                    postingTag
-                            )
-                        }
-                        ivPreviewEnd -> {
-                            ImagePreviewUtils.previewSingleAvatar(
-                                    this,
-                                    endData,
-                                    ivPreviewEnd,
-                                    postingTag
-                            )
-                        }
+            .subscribe {
+                when (it) {
+                    ivPreviewStart -> {
+                        ImagePreviewUtils.previewSingleNormal(
+                            this,
+                            startData,
+                            ivPreviewStart,
+                            postingTag
+                        )
+                    }
+                    ivPreviewEnd -> {
+                        ImagePreviewUtils.previewSingleAvatar(
+                            this,
+                            endData,
+                            ivPreviewEnd,
+                            postingTag
+                        )
                     }
                 }
+            }
     }
 
     private fun initRecycler() {
-        adapter.register(ImageData::class, BinderImage(this))
+        adapter.register(ImageData::class, BinderOfImage(this))
         rvImage.adapter = adapter
         rvImage.layoutManager = layoutManager
         adapter.items = Constants.imageList
@@ -129,8 +120,8 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
                 }
                 rvImage.id -> {
                     rvImage.findViewHolderForAdapterPosition(previewStartEvent.position)
-                            ?.itemView
-                            ?.visibility = View.INVISIBLE
+                        ?.itemView
+                        ?.visibility = View.INVISIBLE
                 }
             }
         }
@@ -148,13 +139,13 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
                 }
                 rvImage.id -> {
                     0.until(rvImage.childCount)
-                            .map {
-                                rvImage.getChildAt(it)
-                            }.filter {
-                                it.isInvisible
-                            }.forEach {
-                                it.visibility = View.VISIBLE
-                            }
+                        .map {
+                            rvImage.getChildAt(it)
+                        }.filter {
+                            it.isInvisible
+                        }.forEach {
+                            it.visibility = View.VISIBLE
+                        }
                 }
             }
         }
@@ -162,12 +153,19 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onItemClick(postEvent: PostEvent<Int>) {
-        if (postEvent.checkTag(BinderImage.TAG_ITEM_CLICK)) {
+        if (postEvent.checkTag(BinderOfImage.TAG_ITEM_CLICK)) {
             val position = postEvent.data
             rvImage.findViewHolderForAdapterPosition(position)
-                    ?.also {
-                        ImagePreviewUtils.previewMultipleImage(this, Constants.imageList, position, rvImage, it.itemView, postingTag)
-                    }
+                ?.also {
+                    ImagePreviewUtils.previewMultipleImage(
+                        this,
+                        Constants.imageList,
+                        position,
+                        rvImage,
+                        it.itemView,
+                        postingTag
+                    )
+                }
         }
     }
 
@@ -178,23 +176,23 @@ class ActivityPreview : BaseActivity(R.layout.activity_preview) {
             when (previewChangeEvent.targetId) {
                 rvImage.id -> {
                     0.until(rvImage.childCount)
-                            .map {
-                                rvImage.getChildAt(it)
-                            }.filter {
-                                it.isInvisible
-                            }.forEach {
-                                it.visibility = View.VISIBLE
-                            }
+                        .map {
+                            rvImage.getChildAt(it)
+                        }.filter {
+                            it.isInvisible
+                        }.forEach {
+                            it.visibility = View.VISIBLE
+                        }
                     layoutManager.scrollToPosition(position)
                     rvImage.doOnPreDraw { _ ->
                         rvImage.findViewHolderForAdapterPosition(position)?.also {
                             GlobalScope.launch(Dispatchers.IO) {
                                 val imageBitmap = ImagePreviewUtils.saveImageBitmap(it.itemView)
                                 EventBus.getDefault().post(
-                                        PositionChangedEvent(
-                                                imageBitmap,
-                                                ViewPosition.from(it.itemView)
-                                        )
+                                    PositionChangedEvent(
+                                        imageBitmap,
+                                        ViewPosition.from(it.itemView)
+                                    )
                                 )
                             }
                             it.itemView.visibility = View.INVISIBLE
