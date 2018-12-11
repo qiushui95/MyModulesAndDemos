@@ -10,7 +10,8 @@ import org.koin.dsl.module.module
  * create at 2018/12/09 0009
  */
 object ModuleOfViewModel {
-    val modules = module {
-        viewModel<ViewModelOfHome>()
-    }
+
+	val modules = module {
+		viewModel<ViewModelOfHome>()
+	}
 }

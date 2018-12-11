@@ -11,8 +11,9 @@ import me.yangcx.common.ui.FoundationActivity
  * create at 2018/12/06 0006
  */
 abstract class BaseActivity(@LayoutRes layoutRes: Int) : FoundationActivity(layoutRes) {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        BackgroundLibrary.inject(this)
-        super.onCreate(savedInstanceState)
-    }
+
+	override fun onCreate(savedInstanceState: Bundle?) {
+		BackgroundLibrary.inject(this)
+		super.onCreate(savedInstanceState)
+	}
 }

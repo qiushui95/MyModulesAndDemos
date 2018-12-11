@@ -11,9 +11,10 @@ import me.yangcx.demos.ui.preview.ActivityOfPreview
  * create at 2018/12/08 0008
  */
 class ViewModelOfHome(application: Application) : AndroidViewModel(application) {
-    val buttonList by lazy {
-        listOf(
-                HomeButtonInfo(getApplication<Application>().getString(R.string.stringHomeButton1), ActivityOfPreview::class)
-        )
-    }
+
+	val buttonList by lazy {
+		listOf(
+				HomeButtonInfo(getApplication<Application>().getString(R.string.stringHomeButton1), ActivityOfPreview::class)
+			  )
+	}
 }

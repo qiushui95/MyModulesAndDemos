@@ -16,32 +16,32 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ActivityOfHome : ViewModelActivity(R.layout.activity_home), IEventBus {
-    private val viewModel by viewModel<ViewModelOfHome>()
-    private val adapter by inject<MultiTypeAdapter>()
+	private val viewModel by viewModel<ViewModelOfHome>()
+	private val adapter by inject<MultiTypeAdapter>()
 
-    override fun initAfterUi() {
-        initRecycler()
-    }
+	override fun initAfterUi() {
+		initRecycler()
+	}
 
-    override fun onBindViewListener() {
-        srlHome.setOnRefreshListener {
-            srlHome.isRefreshing = false
-            adapter.notifyDataSetChanged()
-        }
-    }
+	override fun onBindViewListener() {
+		srlHome.setOnRefreshListener {
+			srlHome.isRefreshing = false
+			adapter.notifyDataSetChanged()
+		}
+	}
 
-    override fun onBindViewModel() {
-        adapter.items = viewModel.buttonList
-    }
+	override fun onBindViewModel() {
+		adapter.items = viewModel.buttonList
+	}
 
-    private fun initRecycler() {
-        adapter.register(HomeButtonInfo::class.java, BinderOfHomeButton(this))
-        rvHome.layoutManager = FlexboxLayoutManager(this)
-        rvHome.adapter = adapter
-    }
+	private fun initRecycler() {
+		adapter.register(HomeButtonInfo::class.java, BinderOfHomeButton())
+		rvHome.layoutManager = FlexboxLayoutManager(this)
+		rvHome.adapter = adapter
+	}
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onItemClick(postEvent: PostEvent<HomeButtonInfo<Activity>>) {
-        startActivity(Intent(this, postEvent.data.clickClass.java))
-    }
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onItemClick(postEvent: PostEvent<HomeButtonInfo<Activity>>) {
+		startActivity(Intent(this, postEvent.data.clickClass.java))
+	}
 }

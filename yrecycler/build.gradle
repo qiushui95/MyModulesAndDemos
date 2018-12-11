@@ -50,6 +50,6 @@ dependencies {
     implementation deps.recyclerView.multiType
     implementation deps.recyclerView.multiTypeKtx
 
-    //rx
-    compileOnly deps.rx.java
+
+    implementation deps.autoDispose.lifecycleKtx
 }

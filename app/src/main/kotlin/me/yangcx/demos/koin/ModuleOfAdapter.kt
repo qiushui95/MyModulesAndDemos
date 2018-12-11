@@ -9,9 +9,10 @@ import org.koin.dsl.module.module
  * create at 2018/12/09 0009
  */
 object ModuleOfAdapter {
-    val modules = module {
-        factory {
-            MultiTypeAdapter()
-        }
-    }
+
+	val modules = module {
+		factory {
+			MultiTypeAdapter()
+		}
+	}
 }

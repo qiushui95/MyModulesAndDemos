@@ -9,13 +9,14 @@ import org.koin.android.ext.android.startKoin
  * create at 2018/12/09 0009
  */
 object KoinInjector {
-    fun inject(application: Application) {
-        application.startKoin(
-            application,
-            listOf(
-                ModuleOfAdapter.modules,
-                ModuleOfViewModel.modules
-            )
-        )
-    }
+
+	fun inject(application: Application) {
+		application.startKoin(
+			application,
+			listOf(
+				ModuleOfAdapter.modules,
+				ModuleOfViewModel.modules
+			)
+		)
+	}
 }

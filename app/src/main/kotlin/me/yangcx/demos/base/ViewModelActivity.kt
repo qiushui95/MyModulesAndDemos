@@ -9,15 +9,16 @@ import androidx.annotation.LayoutRes
  * create at 2018/11/29 0029
  */
 abstract class ViewModelActivity(@LayoutRes layoutRes: Int) : BaseActivity(layoutRes) {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        onBindViewModel()
-    }
 
-    /**
-     * 绑定ViewModel
-     * create by 97457
-     * create at 2018/11/29
-     */
-    protected abstract fun onBindViewModel()
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		onBindViewModel()
+	}
+
+	/**
+	 * 绑定ViewModel
+	 * create by 97457
+	 * create at 2018/11/29
+	 */
+	protected abstract fun onBindViewModel()
 }

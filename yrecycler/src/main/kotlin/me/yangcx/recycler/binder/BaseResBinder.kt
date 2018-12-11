@@ -3,10 +3,8 @@ package me.yangcx.recycler.binder
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.lifecycle.LifecycleOwner
 
-abstract class BaseResBinder<T : Any>(@LayoutRes private val layoutRes: Int, lifecycleOwner: LifecycleOwner) :
-        BaseBinder<T>(lifecycleOwner) {
+abstract class BaseResBinder<T : Any>(@LayoutRes private val layoutRes: Int) : BaseBinder<T>() {
     final override fun createView(inflater: LayoutInflater, parent: ViewGroup) =
-            inflater.inflate(layoutRes, parent, false)!!
+        inflater.inflate(layoutRes, parent, false)!!
 }

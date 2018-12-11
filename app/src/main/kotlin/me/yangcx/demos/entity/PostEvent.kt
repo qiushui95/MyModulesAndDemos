@@ -6,5 +6,6 @@ package me.yangcx.demos.entity
  * create at 2018/12/06 0006
  */
 data class PostEvent<T : Any>(val tag: String, val data: T) {
-    fun checkTag(tag: String) = tag == this.tag
+
+	fun checkTag(tag: String) = tag == this.tag
 }

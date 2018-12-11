@@ -138,6 +138,8 @@ autoDispose.version = "1.0.0"
 autoDispose.core = "com.uber.autodispose:autodispose-ktx:$autoDispose.version"
 autoDispose.android = "com.uber.autodispose:autodispose-android-ktx:$autoDispose.version"
 autoDispose.androidArchcomponents = "com.uber.autodispose:autodispose-android-archcomponents-ktx:$autoDispose.version"
+autoDispose.lifecycle = "com.uber.autodispose:autodispose-lifecycle:$autoDispose.version"
+autoDispose.lifecycleKtx = "com.uber.autodispose:autodispose-lifecycle-ktx:$autoDispose.version"
 deps.autoDispose = autoDispose
 
 def navigation = [:]

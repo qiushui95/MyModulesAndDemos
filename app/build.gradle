@@ -121,6 +121,7 @@ dependencies {
     implementation deps.autoDispose.core
     implementation deps.autoDispose.android
     implementation deps.autoDispose.androidArchcomponents
+    implementation deps.autoDispose.lifecycleKtx
 
     //recycler
     implementation deps.recyclerView.recyclerView

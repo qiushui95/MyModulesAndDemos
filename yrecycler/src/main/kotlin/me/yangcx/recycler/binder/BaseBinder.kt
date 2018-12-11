@@ -4,11 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
-import androidx.recyclerview.widget.RecyclerView
 import me.drakeet.multitype.ItemViewBinder
 import me.yangcx.recycler.holder.BaseHolder
 
-abstract class BaseBinder<T : Any>(protected val lifecycleOwner: LifecycleOwner) : ItemViewBinder<T, RecyclerView.ViewHolder>() {
+abstract class BaseBinder<T : Any> : ItemViewBinder<T, BaseHolder>() {
     protected lateinit var data: T
     /**
      * 创建显示View
@@ -18,31 +17,31 @@ abstract class BaseBinder<T : Any>(protected val lifecycleOwner: LifecycleOwner)
     /**
      * 初始化
      */
-    abstract fun initThis(holder: RecyclerView.ViewHolder, itemView: View)
+    abstract fun initThis(holder: BaseHolder, itemView: View)
 
     /**
      * 绘制item界面
      */
-    abstract fun drawUi(holder: RecyclerView.ViewHolder, itemView: View, data: T)
+    abstract fun drawUi(holder: BaseHolder, itemView: View, data: T)
 
     /**
      * 数据局部变化、重绘局部界面
      */
-    protected open fun uiChanged(holder: RecyclerView.ViewHolder, itemView: View, data: T, changeList: List<String>) {
+    protected open fun uiChanged(holder: BaseHolder, itemView: View, data: T, changeList: List<String>) {
     }
 
-    override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): BaseHolder {
         val holder = BaseHolder(createView(inflater, parent))
         initThis(holder, holder.itemView)
         return holder
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: T) {
+    override fun onBindViewHolder(holder: BaseHolder, item: T) {
         this.data = item
         drawUi(holder, holder.itemView, item)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: T, changeList: MutableList<Any>) {
+    override fun onBindViewHolder(holder: BaseHolder, item: T, changeList: MutableList<Any>) {
         this.data = item
         val firstItem = changeList.firstOrNull()
         @Suppress("UNCHECKED_CAST")
@@ -54,4 +53,8 @@ abstract class BaseBinder<T : Any>(protected val lifecycleOwner: LifecycleOwner)
         }
     }
 
+    override fun onViewRecycled(holder: BaseHolder) {
+        holder.onDestroy()
+        super.onViewRecycled(holder)
+    }
 }
