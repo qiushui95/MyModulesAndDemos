@@ -9,12 +9,13 @@ import androidx.recyclerview.widget.LinearSmoothScroller
  * create at 2018/12/06
  */
 class FastLinearSmoothScroller(context: Context) : LinearSmoothScroller(context) {
-    override fun calculateTimeForScrolling(dx: Int): Int {
-        val realDx = if (dx > 3000) {
-            3000
-        } else {
-            dx
-        }
-        return super.calculateTimeForScrolling(realDx)
-    }
+
+	override fun calculateTimeForScrolling(dx: Int): Int {
+		val realDx = if (dx > 3000) {
+			3000
+		} else {
+			dx
+		}
+		return super.calculateTimeForScrolling(realDx)
+	}
 }

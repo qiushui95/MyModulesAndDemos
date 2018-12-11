@@ -9,6 +9,6 @@ import kotlin.reflect.KClass
  * create at 2018/12/08 0008
  */
 class HomeButtonInfo<T : Activity>(
-	val title: CharSequence,
-	val clickClass: KClass<T>
-)
+		val title: CharSequence,
+		val clickClass: KClass<T>
+								  )

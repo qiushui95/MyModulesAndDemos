@@ -9,11 +9,12 @@ import me.yangcx.preview.R
  * create at 2018/12/06 0006
  */
 internal class ActivitySingleAvatarPreview : ActivityBaseSingle(R.layout.activity_single_avatar_preview) {
-    companion object {
-        internal lateinit var requestOptions: RequestOptions
-    }
 
-    override val requestOptions: RequestOptions
-        get() = ActivitySingleAvatarPreview.requestOptions
+	companion object {
+		internal lateinit var requestOptions: RequestOptions
+	}
+
+	override val requestOptions: RequestOptions
+		get() = ActivitySingleAvatarPreview.requestOptions
 
 }

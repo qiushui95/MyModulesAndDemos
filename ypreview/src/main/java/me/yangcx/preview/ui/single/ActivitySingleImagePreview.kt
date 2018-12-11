@@ -9,11 +9,12 @@ import me.yangcx.preview.R
  * create at 2018/12/06 0006
  */
 internal class ActivitySingleImagePreview : ActivityBaseSingle(R.layout.activity_single_image_preview) {
-    companion object {
-        internal lateinit var requestOptions: RequestOptions
-    }
 
-    override val requestOptions: RequestOptions
-        get() = ActivitySingleImagePreview.requestOptions
+	companion object {
+		internal lateinit var requestOptions: RequestOptions
+	}
+
+	override val requestOptions: RequestOptions
+		get() = ActivitySingleImagePreview.requestOptions
 
 }

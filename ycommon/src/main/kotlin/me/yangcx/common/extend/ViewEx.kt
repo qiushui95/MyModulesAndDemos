@@ -13,14 +13,14 @@ import java.util.concurrent.TimeUnit
  */
 @CheckResult
 fun View.click(vararg views: View, interval: Long = 1000, unit: TimeUnit = TimeUnit.MILLISECONDS): Observable<View> {
-    val viewArray = Array(views.size + 1) {
-        if (it >= views.size) {
-            this
-        } else {
-            views[it]
-        }
-    }
-    return ClickUtils.createMultipleViewSingleClickObservable(viewArray, interval, unit)
+	val viewArray = Array(views.size + 1) {
+		if (it >= views.size) {
+			this
+		} else {
+			views[it]
+		}
+	}
+	return ClickUtils.createMultipleViewSingleClickObservable(viewArray, interval, unit)
 }
 
 /**
@@ -30,12 +30,12 @@ fun View.click(vararg views: View, interval: Long = 1000, unit: TimeUnit = TimeU
  */
 @CheckResult
 fun View.clickContinuous(vararg views: View, interval: Long = 1000, unit: TimeUnit = TimeUnit.MILLISECONDS): Observable<Pair<Int, View>> {
-    val viewArray = Array(views.size + 1) {
-        if (it >= views.size) {
-            this
-        } else {
-            views[it]
-        }
-    }
-    return ClickUtils.createMultipleViewContinuousClickObservable(viewArray, interval, unit)
+	val viewArray = Array(views.size + 1) {
+		if (it >= views.size) {
+			this
+		} else {
+			views[it]
+		}
+	}
+	return ClickUtils.createMultipleViewContinuousClickObservable(viewArray, interval, unit)
 }

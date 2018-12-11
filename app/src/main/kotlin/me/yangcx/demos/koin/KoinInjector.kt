@@ -12,11 +12,11 @@ object KoinInjector {
 
 	fun inject(application: Application) {
 		application.startKoin(
-			application,
-			listOf(
-				ModuleOfAdapter.modules,
-				ModuleOfViewModel.modules
-			)
-		)
+				application,
+				listOf(
+						ModuleOfAdapter.modules,
+						ModuleOfViewModel.modules
+					  )
+							 )
 	}
 }

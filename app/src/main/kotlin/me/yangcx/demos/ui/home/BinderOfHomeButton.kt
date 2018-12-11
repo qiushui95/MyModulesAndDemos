@@ -19,30 +19,31 @@ import org.greenrobot.eventbus.EventBus
  * create at 2018/12/08 0008
  */
 class BinderOfHomeButton : BaseResBinder<HomeButtonInfo<*>>(R.layout.item_home_button) {
-    companion object {
-        const val TAG_ITEM_CLICK = "C4Rn2xO1pwg7VAGo9OoGLEA9uEYsuJju"
-    }
 
-    private val randomColor by lazy {
-        RandomColor()
-    }
+	companion object {
+		const val TAG_ITEM_CLICK = "C4Rn2xO1pwg7VAGo9OoGLEA9uEYsuJju"
+	}
 
-    override fun initThis(holder: BaseHolder, itemView: View) {
-        itemView.click()
-            .autoDisposable(holder)
-            .subscribe {
-                EventBus.getDefault().post(PostEvent(TAG_ITEM_CLICK, data))
-            }
-        itemView.updateLayoutParams<FlexboxLayoutManager.LayoutParams> {
-            flexGrow = 1f
-        }
-    }
+	private val randomColor by lazy {
+		RandomColor()
+	}
 
-    override fun drawUi(holder: BaseHolder, itemView: View, data: HomeButtonInfo<*>) {
-        if (itemView is TextView) {
-            itemView.setBackgroundColor(randomColor.randomColor())
-            itemView.setTextColor(randomColor.randomColor())
-            itemView.text = data.title
-        }
-    }
+	override fun initThis(holder: BaseHolder, itemView: View) {
+		itemView.click()
+				.autoDisposable(holder)
+				.subscribe {
+					EventBus.getDefault().post(PostEvent(TAG_ITEM_CLICK, data))
+				}
+		itemView.updateLayoutParams<FlexboxLayoutManager.LayoutParams> {
+			flexGrow = 1f
+		}
+	}
+
+	override fun drawUi(holder: BaseHolder, itemView: View, data: HomeButtonInfo<*>) {
+		if (itemView is TextView) {
+			itemView.setBackgroundColor(randomColor.randomColor())
+			itemView.setTextColor(randomColor.randomColor())
+			itemView.text = data.title
+		}
+	}
 }

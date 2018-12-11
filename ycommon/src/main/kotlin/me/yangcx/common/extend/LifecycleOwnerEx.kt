@@ -21,8 +21,8 @@ import java.util.concurrent.TimeUnit
  */
 @CheckResult
 fun LifecycleOwner.click(vararg views: View, interval: Long = 1000, unit: TimeUnit = TimeUnit.MILLISECONDS): ObservableSubscribeProxy<View> {
-    return ClickUtils.createMultipleViewSingleClickObservable(views, interval, unit)
-            .`as`(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+	return ClickUtils.createMultipleViewSingleClickObservable(views, interval, unit)
+			.`as`(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
 }
 
 /**
@@ -33,8 +33,8 @@ fun LifecycleOwner.click(vararg views: View, interval: Long = 1000, unit: TimeUn
  */
 @CheckResult
 fun LifecycleOwner.click(vararg views: View, disposeEvent: Lifecycle.Event, interval: Long = 1000, unit: TimeUnit = TimeUnit.MILLISECONDS): ObservableSubscribeProxy<View> {
-    return ClickUtils.createMultipleViewSingleClickObservable(views, interval, unit)
-            .`as`(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this, disposeEvent)))
+	return ClickUtils.createMultipleViewSingleClickObservable(views, interval, unit)
+			.`as`(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this, disposeEvent)))
 }
 
 /**
@@ -44,8 +44,8 @@ fun LifecycleOwner.click(vararg views: View, disposeEvent: Lifecycle.Event, inte
  */
 @CheckResult
 fun LifecycleOwner.clickContinuous(vararg views: View, interval: Long = 1000, unit: TimeUnit = TimeUnit.MILLISECONDS): ObservableSubscribeProxy<Pair<Int, View>> {
-    return ClickUtils.createMultipleViewContinuousClickObservable(views, interval, unit)
-            .`as`(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+	return ClickUtils.createMultipleViewContinuousClickObservable(views, interval, unit)
+			.`as`(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this)))
 }
 
 /**
@@ -56,6 +56,6 @@ fun LifecycleOwner.clickContinuous(vararg views: View, interval: Long = 1000, un
  */
 @CheckResult
 fun LifecycleOwner.clickContinuous(vararg views: View, disposeEvent: Lifecycle.Event, interval: Long = 1000, unit: TimeUnit = TimeUnit.MILLISECONDS): ObservableSubscribeProxy<Pair<Int, View>> {
-    return ClickUtils.createMultipleViewContinuousClickObservable(views, interval, unit)
-            .`as`(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this, disposeEvent)))
+	return ClickUtils.createMultipleViewContinuousClickObservable(views, interval, unit)
+			.`as`(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this, disposeEvent)))
 }

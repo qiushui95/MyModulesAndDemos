@@ -8,52 +8,53 @@ import androidx.recyclerview.widget.DiffUtil
  * create at 2018/11/29 0029
  */
 class DiffHelper : DiffUtil.Callback() {
-    private var oldList: List<Any?>? = null
-    private var newList: List<Any?>? = null
 
-    override fun getOldListSize() = oldList?.size ?: 0
-    override fun getNewListSize() = newList?.size ?: 0
+	private var oldList: List<Any?>? = null
+	private var newList: List<Any?>? = null
 
-    private fun getOldItem(position: Int) = oldList?.get(position)
-    private fun getNewItem(position: Int) = newList?.get(position)
+	override fun getOldListSize() = oldList?.size ?: 0
+	override fun getNewListSize() = newList?.size ?: 0
 
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldItem = getOldItem(oldItemPosition)
-        val newItem = getNewItem(newItemPosition)
-        return if (oldItem is Diffable && newItem is Diffable) {
-            oldItem.isItemSame(newItem)
-        } else {
-            oldItem == newItem
-        }
-    }
+	private fun getOldItem(position: Int) = oldList?.get(position)
+	private fun getNewItem(position: Int) = newList?.get(position)
 
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldItem = getOldItem(oldItemPosition)
-        val newItem = getNewItem(newItemPosition)
-        return if (oldItem is Diffable && newItem is Diffable) {
-            oldItem.isContentSame(newItem)
-        } else {
-            oldItem == newItem
-        }
-    }
+	override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+		val oldItem = getOldItem(oldItemPosition)
+		val newItem = getNewItem(newItemPosition)
+		return if (oldItem is Diffable && newItem is Diffable) {
+			oldItem.isItemSame(newItem)
+		} else {
+			oldItem == newItem
+		}
+	}
 
-    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-        return getChangeList(oldItemPosition, newItemPosition)
-    }
+	override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+		val oldItem = getOldItem(oldItemPosition)
+		val newItem = getNewItem(newItemPosition)
+		return if (oldItem is Diffable && newItem is Diffable) {
+			oldItem.isContentSame(newItem)
+		} else {
+			oldItem == newItem
+		}
+	}
 
-    private fun getChangeList(oldItemPosition: Int, newItemPosition: Int): List<String> {
-        val changeList = mutableListOf<String>()
-        val oldItem = getOldItem(oldItemPosition)
-        val newItem = getNewItem(newItemPosition)
-        if (oldItem is Diffable && newItem is Diffable) {
-            oldItem.getChangeList(newItem, changeList)
-        }
-        return changeList
-    }
+	override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+		return getChangeList(oldItemPosition, newItemPosition)
+	}
 
-    fun diff(oldList: List<Any?>, newList: List<Any?>, detectMoves: Boolean = true): DiffUtil.DiffResult {
-        this.oldList = oldList
-        this.newList = newList
-        return DiffUtil.calculateDiff(this, detectMoves)
-    }
+	private fun getChangeList(oldItemPosition: Int, newItemPosition: Int): List<String> {
+		val changeList = mutableListOf<String>()
+		val oldItem = getOldItem(oldItemPosition)
+		val newItem = getNewItem(newItemPosition)
+		if (oldItem is Diffable && newItem is Diffable) {
+			oldItem.getChangeList(newItem, changeList)
+		}
+		return changeList
+	}
+
+	fun diff(oldList: List<Any?>, newList: List<Any?>, detectMoves: Boolean = true): DiffUtil.DiffResult {
+		this.oldList = oldList
+		this.newList = newList
+		return DiffUtil.calculateDiff(this, detectMoves)
+	}
 }

@@ -6,7 +6,8 @@ package me.yangcx.preview.entity
  * create at 2018/12/06 0006
  */
 enum class ImageShowType {
-    ALL,//先显示缩略图，再显示原图
-    JUST_THUMBNAIL,//只显示缩略图
-    JUST_ORIGIN//只显示原图
+
+	ALL, //先显示缩略图，再显示原图
+	JUST_THUMBNAIL, //只显示缩略图
+	JUST_ORIGIN //只显示原图
 }

@@ -1,18 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.yangcx.preview">
+          package="me.yangcx.preview">
 
     <application>
         <activity
-            android:name=".ui.single.ActivitySingleImagePreview"
-            android:screenOrientation="behind"
-            android:theme="@style/ThemePreview" />
+                android:name=".ui.single.ActivitySingleImagePreview"
+                android:screenOrientation="behind"
+                android:theme="@style/ThemePreview"/>
         <activity
-            android:name=".ui.single.ActivitySingleAvatarPreview"
-            android:screenOrientation="behind"
-            android:theme="@style/ThemePreview" />
+                android:name=".ui.single.ActivitySingleAvatarPreview"
+                android:screenOrientation="behind"
+                android:theme="@style/ThemePreview"/>
         <activity
-            android:name=".ui.multiple.image.ActivityMultipleImagePreview"
-            android:screenOrientation="behind"
-            android:theme="@style/ThemePreview" />
+                android:name=".ui.multiple.image.ActivityMultipleImagePreview"
+                android:screenOrientation="behind"
+                android:theme="@style/ThemePreview"/>
     </application>
 </manifest>

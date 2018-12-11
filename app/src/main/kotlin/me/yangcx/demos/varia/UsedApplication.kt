@@ -15,67 +15,68 @@ import org.greenrobot.eventbus.EventBus
  * create at 2018/12/06 0006
  */
 class UsedApplication : MultiDexApplication(), Application.ActivityLifecycleCallbacks {
-    override fun onCreate() {
-        super.onCreate()
-        registerLifecycle()
-        KoinInjector.inject(this)
-    }
 
-    private fun registerLifecycle() {
-        registerActivityLifecycleCallbacks(this)
-    }
+	override fun onCreate() {
+		super.onCreate()
+		registerLifecycle()
+		KoinInjector.inject(this)
+	}
 
-    private fun registerEventBus(target: Any, register: Boolean) {
-        if (target is IEventBus) {
-            if (register) {
-                EventBus.getDefault().register(target)
-            } else {
-                EventBus.getDefault().unregister(target)
-            }
-        }
-    }
+	private fun registerLifecycle() {
+		registerActivityLifecycleCallbacks(this)
+	}
 
-    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        registerEventBus(activity, true)
-        registerFragmentLifecycle(activity)
-    }
+	private fun registerEventBus(target: Any, register: Boolean) {
+		if (target is IEventBus) {
+			if (register) {
+				EventBus.getDefault().register(target)
+			} else {
+				EventBus.getDefault().unregister(target)
+			}
+		}
+	}
 
-    override fun onActivityStarted(activity: Activity) {
+	override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+		registerEventBus(activity, true)
+		registerFragmentLifecycle(activity)
+	}
 
-    }
+	override fun onActivityStarted(activity: Activity) {
 
-    override fun onActivityResumed(activity: Activity) {
+	}
 
-    }
+	override fun onActivityResumed(activity: Activity) {
 
-    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle?) {
+	}
 
-    }
+	override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle?) {
 
-    override fun onActivityPaused(activity: Activity) {
+	}
 
-    }
+	override fun onActivityPaused(activity: Activity) {
 
-    override fun onActivityStopped(activity: Activity) {
+	}
 
-    }
+	override fun onActivityStopped(activity: Activity) {
 
-    override fun onActivityDestroyed(activity: Activity) {
-        registerEventBus(activity, false)
-    }
+	}
 
-    private fun registerFragmentLifecycle(activity: Activity) {
-        if (activity is FragmentActivity) {
-            activity.supportFragmentManager.registerFragmentLifecycleCallbacks(object :
-                FragmentManager.FragmentLifecycleCallbacks() {
-                override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
-                    registerEventBus(f, true)
-                }
+	override fun onActivityDestroyed(activity: Activity) {
+		registerEventBus(activity, false)
+	}
 
-                override fun onFragmentDestroyed(fm: FragmentManager, f: Fragment) {
-                    registerEventBus(f, false)
-                }
-            }, true)
-        }
-    }
+	private fun registerFragmentLifecycle(activity: Activity) {
+		if (activity is FragmentActivity) {
+			activity.supportFragmentManager.registerFragmentLifecycleCallbacks(object :
+																					   FragmentManager.FragmentLifecycleCallbacks() {
+				override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
+					registerEventBus(f, true)
+				}
+
+				override fun onFragmentDestroyed(fm: FragmentManager, f: Fragment) {
+					registerEventBus(f, false)
+				}
+			}, true)
+		}
+	}
 }

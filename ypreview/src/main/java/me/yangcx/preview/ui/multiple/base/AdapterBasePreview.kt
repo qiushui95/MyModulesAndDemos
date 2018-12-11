@@ -17,22 +17,22 @@ import me.yangcx.preview.utils.ImageLoadUtils
  */
 internal abstract class AdapterBasePreview(private val inflater: LayoutInflater, private val requestOptions: RequestOptions, private val dataList: List<ImageData>) : RecyclePagerAdapter<RecyclePagerAdapter.ViewHolder>() {
 
-    protected abstract fun createView(inflater: LayoutInflater, container: ViewGroup): View
+	protected abstract fun createView(inflater: LayoutInflater, container: ViewGroup): View
 
-    fun getGestureImageView(position: Int): GestureImageView? {
-        return getViewHolder(position)?.itemView as? GestureImageView
-    }
+	fun getGestureImageView(position: Int): GestureImageView? {
+		return getViewHolder(position)?.itemView as? GestureImageView
+	}
 
-    override fun onCreateViewHolder(container: ViewGroup): ViewHolder {
-        return RecyclePagerAdapter.ViewHolder(createView(inflater, container))
-    }
+	override fun onCreateViewHolder(container: ViewGroup): ViewHolder {
+		return RecyclePagerAdapter.ViewHolder(createView(inflater, container))
+	}
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = dataList[position]
-        ImageLoadUtils.loadImage(item, holder.itemView as ImageView, requestOptions)
-    }
+	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+		val item = dataList[position]
+		ImageLoadUtils.loadImage(item, holder.itemView as ImageView, requestOptions)
+	}
 
-    override fun getCount(): Int {
-        return dataList.size
-    }
+	override fun getCount(): Int {
+		return dataList.size
+	}
 }

@@ -9,37 +9,38 @@ import android.os.Parcelable
  * create at 2018/12/06 0006
  */
 data class ImageData(
-        //缩略图数据
-        val thumbnailData: String,
-        //原图数据
-        val origin: String,
-        //图片显示策略
-        val imageShowType: ImageShowType
-) : Parcelable {
-    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-    constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString(),
-            ImageShowType.valueOf(parcel.readString())
-    )
+		//缩略图数据
+		val thumbnailData: String,
+		//原图数据
+		val origin: String,
+		//图片显示策略
+		val imageShowType: ImageShowType
+					) : Parcelable {
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(thumbnailData)
-        parcel.writeString(origin)
-        parcel.writeString(imageShowType.name)
-    }
+	@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+	constructor(parcel: Parcel) : this(
+			parcel.readString(),
+			parcel.readString(),
+			ImageShowType.valueOf(parcel.readString())
+									  )
 
-    override fun describeContents(): Int {
-        return 0
-    }
+	override fun writeToParcel(parcel: Parcel, flags: Int) {
+		parcel.writeString(thumbnailData)
+		parcel.writeString(origin)
+		parcel.writeString(imageShowType.name)
+	}
 
-    companion object CREATOR : Parcelable.Creator<ImageData> {
-        override fun createFromParcel(parcel: Parcel): ImageData {
-            return ImageData(parcel)
-        }
+	override fun describeContents(): Int {
+		return 0
+	}
 
-        override fun newArray(size: Int): Array<ImageData?> {
-            return arrayOfNulls(size)
-        }
-    }
+	companion object CREATOR : Parcelable.Creator<ImageData> {
+		override fun createFromParcel(parcel: Parcel): ImageData {
+			return ImageData(parcel)
+		}
+
+		override fun newArray(size: Int): Array<ImageData?> {
+			return arrayOfNulls(size)
+		}
+	}
 }

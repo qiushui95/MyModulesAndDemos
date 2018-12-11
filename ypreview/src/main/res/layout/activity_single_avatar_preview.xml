@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge
-    xmlns:android="http://schemas.android.com/apk/res/android">
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
     <View
-        android:id="@+id/backSingleImagePreview"
-        style="@style/stylePreviewBack" />
+            android:id="@+id/backSingleImagePreview"
+            style="@style/stylePreviewBack"/>
 
     <com.alexvasilkov.gestures.commons.circle.CircleGestureImageView
-        android:id="@+id/givSingleImage"
-        style="@style/stylePreviewSingle" />
+            android:id="@+id/givSingleImage"
+            style="@style/stylePreviewSingle"/>
 </merge>

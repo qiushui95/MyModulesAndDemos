@@ -6,5 +6,6 @@ package me.yangcx.preview.entity
  * create at 2018/12/06 0006
  */
 data class PreviewFinishedEvent(val postingTag: String, val targetId: Int) {
-    fun checkTag(tag: String) = postingTag == tag
+
+	fun checkTag(tag: String) = postingTag == tag
 }
