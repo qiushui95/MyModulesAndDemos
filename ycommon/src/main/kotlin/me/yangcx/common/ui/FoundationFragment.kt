@@ -37,9 +37,8 @@ abstract class FoundationFragment(@LayoutRes private val layoutRes: Int) : Fragm
 	 */
 	abstract fun bindViewListener()
 
-
-	override fun onResume() {
-		super.onResume()
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
 		initThis()
 		bindViewListener()
 	}
