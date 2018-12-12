@@ -3,6 +3,7 @@ package me.yangcx.demos.ui.home
 import android.view.View
 import android.widget.TextView
 import androidx.core.view.updateLayoutParams
+import androidx.recyclerview.widget.RecyclerView
 import com.github.lzyzsd.randomcolor.RandomColor
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.uber.autodispose.autoDisposable
@@ -28,18 +29,21 @@ class BinderOfHomeButton : BaseResBinder<HomeButtonInfo<*>>(R.layout.item_home_b
 		RandomColor()
 	}
 
-	override fun initThis(holder: BaseHolder, itemView: View) {
-		itemView.click()
-				.autoDisposable(holder)
-				.subscribe {
-					EventBus.getDefault().post(PostEvent(TAG_ITEM_CLICK, data))
-				}
+	override fun onViewCreated(itemView: View) {
 		itemView.updateLayoutParams<FlexboxLayoutManager.LayoutParams> {
 			flexGrow = 1f
 		}
 	}
 
-	override fun drawUi(holder: BaseHolder, itemView: View, data: HomeButtonInfo<*>) {
+	override fun onAttached(holder: BaseHolder<HomeButtonInfo<*>>, itemView: View) {
+		itemView.click()
+				.autoDisposable(holder)
+				.subscribe {
+					EventBus.getDefault().post(PostEvent(TAG_ITEM_CLICK, holder.data))
+				}
+	}
+
+	override fun drawUi(holder: RecyclerView.ViewHolder, itemView: View, data: HomeButtonInfo<*>) {
 		if (itemView is TextView) {
 			itemView.setBackgroundColor(randomColor.randomColor())
 			itemView.setTextColor(randomColor.randomColor())

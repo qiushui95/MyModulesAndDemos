@@ -1,9 +1,11 @@
 package me.yangcx.demos.ui.preview
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -39,7 +41,7 @@ class BinderOfImage : BaseBinder<ImageData>() {
 				}
 	}
 
-	override fun initThis(holder: BaseHolder, itemView: View) {
+	override fun onAttached(holder: BaseHolder<ImageData>, itemView: View) {
 		itemView.click()
 				.autoDisposable(holder)
 				.subscribe {
@@ -47,7 +49,7 @@ class BinderOfImage : BaseBinder<ImageData>() {
 				}
 	}
 
-	override fun drawUi(holder: BaseHolder, itemView: View, data: ImageData) {
+	override fun drawUi(holder: RecyclerView.ViewHolder, itemView: View, data: ImageData) {
 		Glide.with(itemView)
 				.load(data.thumbnailData)
 				.apply(

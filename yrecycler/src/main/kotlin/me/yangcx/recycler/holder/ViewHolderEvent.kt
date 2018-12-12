@@ -7,5 +7,5 @@ package me.yangcx.recycler.holder
  */
 enum class ViewHolderEvent {
 
-	ON_CREATE, ON_DESTROY
+	ON_ATTACHED, ON_DETACHED
 }
