@@ -5,6 +5,7 @@ import android.content.Intent
 import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.android.synthetic.main.activity_home.*
 import me.drakeet.multitype.MultiTypeAdapter
+import me.yangcx.common.annotation.BindLayoutRes
 import me.yangcx.demos.R
 import me.yangcx.demos.base.ViewModelActivity
 import me.yangcx.demos.entity.HomeButtonInfo
@@ -15,7 +16,9 @@ import org.greenrobot.eventbus.ThreadMode
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ActivityOfHome : ViewModelActivity(R.layout.activity_home), IEventBus {
+@BindLayoutRes(R.layout.activity_home)
+class ActivityOfHome : ViewModelActivity(), IEventBus {
+
 	private val viewModel by viewModel<ViewModelOfHome>()
 	private val adapter by inject<MultiTypeAdapter>()
 

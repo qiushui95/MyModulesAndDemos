@@ -8,7 +8,7 @@ import androidx.annotation.LayoutRes
  * create by 97457
  * create at 2018/11/29 0029
  */
-abstract class ViewModelActivity(@LayoutRes layoutRes: Int) : BaseActivity(layoutRes) {
+abstract class ViewModelActivity : BaseActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)

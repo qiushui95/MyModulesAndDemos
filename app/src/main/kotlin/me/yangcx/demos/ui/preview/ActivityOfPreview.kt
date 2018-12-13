@@ -14,6 +14,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import me.drakeet.multitype.MultiTypeAdapter
 import me.drakeet.multitype.register
+import me.yangcx.common.annotation.BindLayoutRes
 import me.yangcx.common.extend.click
 import me.yangcx.demos.R
 import me.yangcx.demos.base.BaseActivity
@@ -35,7 +36,8 @@ import org.koin.android.ext.android.inject
  * create by 97457
  * create at 2018/12/06 0006
  */
-class ActivityOfPreview : BaseActivity(R.layout.activity_preview) {
+@BindLayoutRes(R.layout.activity_preview)
+class ActivityOfPreview : BaseActivity() {
 
 	private val postingTag by lazy {
 		"05zBAT8OHl0xZ50A"
@@ -73,14 +75,14 @@ class ActivityOfPreview : BaseActivity(R.layout.activity_preview) {
 				.apply(
 						RequestOptions()
 								.centerCrop()
-					  ).into(ivPreviewStart)
+				).into(ivPreviewStart)
 
 		Glide.with(this)
 				.load(endData.thumbnailData)
 				.apply(
 						RequestOptions()
 								.centerCrop()
-					  ).into(ivPreviewEnd)
+				).into(ivPreviewEnd)
 	}
 
 	override fun onBindViewListener() {

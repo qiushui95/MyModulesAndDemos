@@ -1,16 +1,28 @@
 package me.yangcx.common.ui
 
 import android.os.Bundle
-import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import me.yangcx.common.annotation.BindLayoutRes
+import me.yangcx.common.annotation.UnbindLayoutException
 
-abstract class FoundationActivity(@LayoutRes private val layoutRes: Int) : AppCompatActivity() {
+abstract class FoundationActivity : AppCompatActivity() {
+	/**
+	 * 设置布局View
+	 * create by 97457
+	 * create at 2018/12/13
+	 */
+	protected open fun setContentView() {
+		val annotation = javaClass.getAnnotation(BindLayoutRes::class.java)
+		if (annotation != null && annotation.layoutRes > 0) {
+			setContentView(annotation.layoutRes)
+		} else {
+			throw UnbindLayoutException()
+		}
+	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		if (layoutRes != NO_UI_RES_ID) {
-			setContentView(layoutRes)
-		}
+		setContentView()
 		initAfterUi()
 		onBindViewListener()
 	}
