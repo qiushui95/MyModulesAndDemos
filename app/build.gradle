@@ -106,6 +106,7 @@ dependencies {
     implementation deps.view.constraintLayout
     implementation deps.view.flexBox
     implementation deps.view.gestureView
+    implementation deps.view.bigImage
 
     //glide
     implementation deps.glide.core

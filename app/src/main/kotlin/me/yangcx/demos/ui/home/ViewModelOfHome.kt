@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import me.yangcx.demos.R
 import me.yangcx.demos.entity.HomeButtonInfo
+import me.yangcx.demos.ui.large.ActivityOfSketchLarge
 import me.yangcx.demos.ui.preview.ActivityOfPreview
 
 /**
@@ -14,7 +15,8 @@ class ViewModelOfHome(application: Application) : AndroidViewModel(application) 
 
 	val buttonList by lazy {
 		listOf(
-				HomeButtonInfo(getApplication<Application>().getString(R.string.stringHomeButton1), ActivityOfPreview::class)
+				HomeButtonInfo(getApplication<Application>().getString(R.string.stringHomeButton1), ActivityOfPreview::class),
+				HomeButtonInfo(getApplication<Application>().getString(R.string.stringHomeButton2), ActivityOfSketchLarge::class)
 			  )
 	}
 }

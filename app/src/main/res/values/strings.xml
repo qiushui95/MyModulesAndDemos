@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">My Modules And Demos</string>
     <string name="stringHomeButton1">图片预览</string>
+    <string name="stringHomeButton2">SubsamplingScaleImageView大图加载</string>
 </resources>

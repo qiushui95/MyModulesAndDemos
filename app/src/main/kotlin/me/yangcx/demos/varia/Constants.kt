@@ -23,7 +23,10 @@ object Constants {
 					String.format(URL_THUMBNAIL_FORMAT, it),
 					String.format(URL_ORIGIN_FORMAT, it),
 					ImageShowType.ALL
-					 )
+			)
 		}
 	}
+
+	private const val LARGE_IMAGE_PATH = "LargeImages/"
+	const val LARGE_IMAGE_URL = "$HOST_IMAGE${LARGE_IMAGE_PATH}ChinaMap.jpg"
 }
