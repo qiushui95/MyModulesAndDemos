@@ -41,7 +41,7 @@ abstract class FoundationFragment : Fragment() {
 	 * params description:
 	 * return description:
 	 */
-	abstract fun initThis()
+	abstract fun initThis(rootView:View)
 
 	/**
 	 * 绑定控件事件
@@ -50,11 +50,11 @@ abstract class FoundationFragment : Fragment() {
 	 * params description:
 	 * return description:
 	 */
-	abstract fun bindViewListener()
+	abstract fun bindViewListener(rootView:View)
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		initThis()
-		bindViewListener()
+		initThis(view)
+		bindViewListener(view)
 	}
 }
