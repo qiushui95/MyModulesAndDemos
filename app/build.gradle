@@ -7,13 +7,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
 
 android {
-    compileSdkVersion buildVersions.targetSdk
-    buildToolsVersion buildVersions.buildTools
+    compileSdkVersion deps.build.targetSdk
+    buildToolsVersion deps.build.buildTools
 
     defaultConfig {
         applicationId "me.yangcx.demos"
-        minSdkVersion buildVersions.minSdk
-        targetSdkVersion buildVersions.targetSdk
+        minSdkVersion deps.build.minSdk
+        targetSdkVersion deps.build.targetSdk
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -124,19 +124,13 @@ dependencies {
     implementation deps.autoDispose.androidArchcomponents
     implementation deps.autoDispose.lifecycleKtx
 
-    //recycler
-    implementation deps.recyclerView.recyclerView
-    implementation(deps.recyclerView.multiType) {
-        exclude group: 'androidx.recyclerview'
-        exclude group: 'androidx.annotation'
-    }
-    implementation deps.recyclerView.multiTypeKtx
-
     //utils
     implementation deps.utils.joda
-    implementation deps.utils.logger
     implementation deps.utils.background
     implementation deps.utils.randomColor
+
+    //log
+    implementation deps.log.logger
 
     //leakCanary
     debugImplementation deps.leakCanary.debug
@@ -152,11 +146,9 @@ dependencies {
     implementation deps.rx.java
     implementation deps.rx.android
 
-    //rxBinding
-    implementation deps.rxBinding.core
 
     //test
     testImplementation deps.test.junit
-    androidTestImplementation deps.test.runner
-    androidTestImplementation deps.test.core
+    androidTestImplementation deps.test.atsl.runner
+    androidTestImplementation deps.test.espresso.core
 }

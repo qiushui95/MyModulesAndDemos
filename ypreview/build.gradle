@@ -5,12 +5,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion buildVersions.targetSdk
-    buildToolsVersion buildVersions.buildTools
+    compileSdkVersion deps.build.targetSdk
+    buildToolsVersion deps.build.buildTools
 
     defaultConfig {
-        minSdkVersion buildVersions.minSdk
-        targetSdkVersion buildVersions.targetSdk
+        minSdkVersion deps.build.minSdk
+        targetSdkVersion deps.build.targetSdk
 
         sourceSets {
             main.java.srcDirs += 'src/main/kotlin'
@@ -38,8 +38,8 @@ dependencies {
 
     //test
     testImplementation deps.test.junit
-    androidTestImplementation deps.test.runner
-    androidTestImplementation deps.test.core
+    androidTestImplementation deps.test.atsl.runner
+    androidTestImplementation deps.test.espresso.core
 
     //kotlin
     implementation deps.kotlin.stdlib

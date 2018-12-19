@@ -1,8 +1,9 @@
-static def addRepertories(RepositoryHandler handler) {
+static def addRepos(RepositoryHandler handler) {
+    handler.mavenLocal()
     handler.maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     handler.maven { url 'https://jitpack.io' }
-    handler.jcenter()
     handler.google()
+    handler.jcenter()
 }
 
-ext.addRepertories = this.&addRepertories
+ext.addRepos = this.&addRepos
