@@ -99,6 +99,9 @@ dependencies {
     implementation deps.androidx.material
     implementation deps.androidx.multiDex
 
+    //workManager
+    implementation deps.workManager.ktx
+
     //bus
     implementation deps.bus.eventBus
 
