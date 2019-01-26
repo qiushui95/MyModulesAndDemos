@@ -16,8 +16,13 @@ import org.greenrobot.eventbus.EventBus
  */
 class UsedApplication : MultiDexApplication(), Application.ActivityLifecycleCallbacks {
 
+	companion object {
+		lateinit var instance: Application
+	}
+
 	override fun onCreate() {
 		super.onCreate()
+		instance = this
 		registerLifecycle()
 		KoinInjector.inject(this)
 	}
@@ -68,7 +73,7 @@ class UsedApplication : MultiDexApplication(), Application.ActivityLifecycleCall
 	private fun registerFragmentLifecycle(activity: Activity) {
 		if (activity is FragmentActivity) {
 			activity.supportFragmentManager.registerFragmentLifecycleCallbacks(object :
-																					   FragmentManager.FragmentLifecycleCallbacks() {
+					                                                                   FragmentManager.FragmentLifecycleCallbacks() {
 				override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
 					registerEventBus(f, true)
 				}

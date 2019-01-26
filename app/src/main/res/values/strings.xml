@@ -3,4 +3,5 @@
     <string name="stringHomeButton1">图片预览</string>
     <string name="stringHomeButton2">SubsamplingScaleImageView大图加载</string>
     <string name="stringHomeButton3">WorkManager定时15分钟启动界面</string>
+    <string name="stringHomeButton4">AspectJ实现登录状态检查</string>
 </resources>

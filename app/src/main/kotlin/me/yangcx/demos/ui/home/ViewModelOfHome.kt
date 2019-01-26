@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import me.yangcx.demos.R
 import me.yangcx.demos.entity.HomeButtonInfo
+import me.yangcx.demos.ui.aspect.AspectHomeActivity
 import me.yangcx.demos.ui.large.ActivityOfSketchLarge
 import me.yangcx.demos.ui.preview.ActivityOfPreview
 import me.yangcx.demos.ui.work.ActivityOfWork
@@ -18,7 +19,8 @@ class ViewModelOfHome(application: Application) : AndroidViewModel(application) 
 		listOf(
 				HomeButtonInfo(getApplication<Application>().getString(R.string.stringHomeButton1), ActivityOfPreview::class),
 				HomeButtonInfo(getApplication<Application>().getString(R.string.stringHomeButton2), ActivityOfSketchLarge::class),
-				HomeButtonInfo(getApplication<Application>().getString(R.string.stringHomeButton3), ActivityOfWork::class)
-			  )
+				HomeButtonInfo(getApplication<Application>().getString(R.string.stringHomeButton3), ActivityOfWork::class),
+				HomeButtonInfo(getApplication<Application>().getString(R.string.stringHomeButton4), AspectHomeActivity::class)
+		)
 	}
 }

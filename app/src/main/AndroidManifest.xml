@@ -26,6 +26,8 @@
         <activity
             android:name=".ui.work.ActicityOfWorkStart"
             android:launchMode="singleTop" />
+        <activity android:name=".ui.aspect.AspectHomeActivity" />
+        <activity android:name=".ui.aspect.AspectCheckActivity" />
     </application>
 
 </manifest>

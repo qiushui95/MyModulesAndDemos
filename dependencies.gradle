@@ -189,6 +189,7 @@ plugin.kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin.version"
 plugin.allOpen = "org.jetbrains.kotlin:kotlin-allopen:$kotlin.version"
 plugin.noArg = "org.jetbrains.kotlin:kotlin-noarg:$kotlin.version"
 plugin.navigationSafeArgs = "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigation.version"
+plugin.aspectJX = "com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.4"
 deps.plugin = plugin
 
 def recyclerView = [:]
@@ -240,5 +241,9 @@ def imagePicker = [:]
 imagePicker.album = "com.yanzhenjie:album:2.1.3"
 deps.imagePicker = imagePicker
 
+def aop=[:]
+aop.aspectJ="org.aspectj:aspectjrt:1.9.2"
+
+deps.aop=aop
 ext.deps = deps
 
